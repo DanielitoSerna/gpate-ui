@@ -1,0 +1,13 @@
+<div class="container ">
+    <form (ngSubmit)="next()">
+        <div class="mb-3">
+            <label for="userId" class="form-label">Usuario</label>
+            <input type="text" [(ngModel)]="user.userName" class="form-control" id="userId" name="userId">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" [(ngModel)]="user.password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+</div>
