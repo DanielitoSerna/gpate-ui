@@ -1,1 +1,18 @@
-<router-outlet></router-outlet> 
+<header class="app_header">
+    <div>
+        <p-toast></p-toast>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <p-button (click)="menu.toggle($event)" icon="pi pi-bars" label="Menú" styleClass="p-button-warning"></p-button>
+    </div>
+    <a href="http://www.gpate.mx/" target="_blank" routerLinkActive="router-link-active" class="app_header__brandContainer" rel="noopener">
+      <img width="250" alt="Angular Logo" src="../../../assets/logo.png"/>
+    </a>
+</header>
+<div class="app_content">
+    <div class="spinner" *ngIf="service.isProgress()">
+        <span class="label-spinner">Cargando...</span>
+        <p-progressSpinner [style]="{ width: '150px', height: '150px' }" styleClass="custom-spinner"
+          strokeWidth="3"></p-progressSpinner>
+    </div>
+    <router-outlet></router-outlet> 
+</div>

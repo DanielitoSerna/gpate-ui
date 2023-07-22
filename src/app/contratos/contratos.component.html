@@ -1,0 +1,135 @@
+<div class="grid pb-3">
+    <div class="col-2" style="margin-top: 30px">
+        <p-button icon="pi pi-plus" label="Nuevo contrato" styleClass="p-button-warning"></p-button>
+    </div>
+    <div class="col-2">
+        <label>Proyecto</label>
+        <div class="pb-2"></div>
+        <input type="text" pInputText [(ngModel)]="filter.proyecto">
+    </div>
+    <div class="col-2">
+        <label>Folio</label>
+        <div class="pb-2"></div>
+        <input type="text" pInputText [(ngModel)]="filter.folio">
+    </div>
+    <div class="col-2">
+        <label>Especialidad</label>
+        <div class="pb-2"></div>
+        <input type="text" pInputText [(ngModel)]="filter.especialidad">
+    </div>
+    <div class="col-2">
+        <label>Proveedor</label>
+        <div class="pb-2"></div>
+        <input type="text" pInputText [(ngModel)]="filter.proveedor">
+    </div>
+    <div class="col-2">
+        <div style="display: flex; margin-top: 30px">
+            <p-button label="Buscar" styleClass="p-button-warning" (click)="filterData()"></p-button>
+            <div class="pr-2"></div>
+            <p-button label="Limpiar" styleClass="p-button-secondary" (click)="clean()" [disabled]="!search"></p-button>
+        </div>
+    </div>
+</div>
+<p-table [value]="contracts" styleClass="p-datatable-sm"
+        sortMode="single"
+        (sortFunction)="sort($event)"
+        [customSort]="true"
+        [tableStyle]="{ 'min-width': '75rem' }">   
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="5" style="border-right: 1px solid; background: #7f7f7f;">INFORMACIÓN DEL CONTRATO</th>
+            <th colspan="5" style="border-right: 1px solid; background: #7f7f7f;">INFORMACIÓN FINANCIERA</th>
+            <th colspan="12" style="background: #7f7f7f;">INFORMACIÓN LEGAL</th>
+        </tr>
+        <tr>
+            <th>Acciones</th>
+            <th style="min-width:120px" pSortableColumn="proyecto">
+                Proyecto
+                <p-sortIcon field="proyecto"></p-sortIcon>
+            </th>
+            <th style="min-width:120px" pSortableColumn="folio">
+                Folio
+                <p-sortIcon field="folio"></p-sortIcon>
+            </th>
+            <th style="min-width:132px" pSortableColumn="especialidad">
+                Especialidad
+                <p-sortIcon field="especialidad"></p-sortIcon>
+            </th>
+            <th style="min-width:120px" pSortableColumn="proveedor">
+                Proveedor
+                <p-sortIcon field="proveedor"></p-sortIcon>
+            </th>
+            <th style="min-width:80px">Estimaciones programadas</th>
+            <th style="min-width:80px">Estimaciones pagadas</th>
+            <th style="min-width:80px">Pagos aplicados</th>
+            <th style="min-width:80px">Saldo pendiente</th>
+            <th style="min-width:120px">Centro de costos</th>
+            <th style="min-width:80px" pSortableColumn="fechaFallo">
+                Fecha fallo
+                <p-sortIcon field="fechaFallo"></p-sortIcon>
+            </th>
+            <th style="min-width:110px" pSortableColumn="fechaSolicitudContrato">
+                Fecha solicitud
+                <p-sortIcon field="fechaSolicitudContrato"></p-sortIcon>
+            </th>
+            <th style="min-width:110px" pSortableColumn="fechaProgramadaEntrega">
+                Fecha de entrega
+                <p-sortIcon field="fechaProgramadaEntrega"></p-sortIcon>
+            </th>
+            <th style="min-width:60px">Días programados</th>
+            <th style="min-width:120px" pSortableColumn="fechaJuridico">
+                Fecha entrega jurídico
+                <p-sortIcon field="fechaJuridico"></p-sortIcon>
+            </th>
+            <th style="min-width:120px" pSortableColumn="fechaFirmadoCliente">
+                Fecha entrega firmado
+                <p-sortIcon field="fechaFirmadoCliente"></p-sortIcon>
+            </th>
+            <th style="min-width:300px">Observaciones</th>
+            <th style="min-width:120px">Estado</th>
+            <th style="min-width:80px">Días de atención</th>
+            <th style="min-width:130px" pSortableColumn="fechaVencimientoContrato">
+                Fecha vencimiento
+                <p-sortIcon field="fechaVencimientoContrato"></p-sortIcon>
+            </th>
+            <th style="min-width:80px">Días de vencimiento</th>
+            <th style="min-width:300px">Hipervínculo</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-contract>
+        <tr>
+            <td></td>
+            <td>{{ contract.proyecto }}</td>
+            <td>{{ contract.folio }}</td>
+            <td>{{ contract.especialidad }}</td>
+            <td>{{ contract.proveedor }}</td>
+            <td style="text-align: end;">{{ contract.estimacionesProgramadas }}</td>
+            <td style="text-align: end;">{{ contract.estimacionesPagadas }}</td>
+            <td style="text-align: end;">{{ contract.pagosAplicados }}</td>
+            <td style="text-align: end;">{{ contract.saldoPendienteContrato }}</td>
+            <td>{{ contract.centroCosto }}</td>
+            <td>{{ contract.fechaFallo | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ contract.fechaSolicitudContrato | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ contract.fechaProgramadaEntrega | date: 'dd/MM/yyyy' }}</td>
+            <td style="text-align: end;">{{ contract.diasProgramados }}</td>
+            <td>{{ contract.fechaJuridico | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ contract.fechaFirmadoCliente | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ contract.observaciones }}</td>
+            <td>{{ contract.statusGeneral }}</td>
+            <td style="text-align: end;">{{ contract.diasAtencion }}</td>
+            <td>{{ contract.fechaVencimientoContrato | date: 'dd/MM/yyyy'}}</td>
+            <td style="text-align: end;">{{ contract.diasVencimiento }}</td>
+            <td>{{ contract.hipervinculo }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-paginator
+        [pageLinkSize]="5"
+        [showCurrentPageReport]="true"
+        [showFirstLastIcon]="false"
+        [rows]="10"
+        [totalRecords]="totalElements"
+        currentPageReportTemplate="Mostrando {{contracts.length}} de {{totalElements}} contratos."
+        [rowsPerPageOptions]="[5,10,20,50]"
+        (onPageChange)="onPageChange($event)">
+</p-paginator>

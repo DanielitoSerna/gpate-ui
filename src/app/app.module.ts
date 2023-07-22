@@ -4,19 +4,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { MenuComponent } from './menu/menu.component';
+import { ContratosComponent } from './contratos/contratos.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime-ng/prime.module';
+import { AppService } from './app.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MenuComponent
+    ContratosComponent
   ],
   imports: [
     BrowserModule,
@@ -24,10 +25,13 @@ import { PrimeModule } from './prime-ng/prime.module';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    PrimeModule
+    PrimeModule,
+    HttpClientModule
     
   ],
-  providers: [],
+  providers: [
+    AppService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
