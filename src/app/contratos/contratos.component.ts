@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-
+import { MessageService } from 'primeng/api';
+import { MomentPipe } from '../moment.pipe';
 
 @Component({
   selector: 'app-contratos',
@@ -9,18 +10,30 @@ import { AppService } from '../app.service';
 })
 export class ContratosComponent implements OnInit {
 
- 
+  visible = false;
+  export = false;
+  changeState = false;
+  editar = false;
+  format = '1';
+  totalElements = 0;
+  search = false;
+  estado = 'Inactivo';
+
   contracts:[] = [];
+  contrato:any = {};
   filter: any = {
     page: 0,
     size: 10,
     orderBy: "proyecto",
     orderAscOrDesc: "asc"
   };
-  totalElements = 0;
-  search = false;
+  estados = [
+    {name: 'Activo', code: 'Activo'},
+    {name: 'Inactivo', code: 'Inactivo'} 
+  ]
 
-  constructor(public service: AppService) {
+  constructor(public service: AppService,
+    private messageService: MessageService) {
     this.loadData();
   }
 
@@ -69,6 +82,96 @@ export class ContratosComponent implements OnInit {
       this.contracts = embedded.contratos;
       this.totalElements = data.page.totalElements;
     });
+  }
+
+  new() {
+    this.contrato = {};
+    this.visible = true;
+    this.editar = false;
+  }
+
+  edit(contrato: any) {
+    this.contrato = {...contrato};
+    this.contrato.fechaFirmadoCliente = this.getDate(this.contrato.fechaFirmadoCliente);
+    this.contrato.fechaVencimientoContrato = this.getDate(this.contrato.fechaVencimientoContrato);
+    this.contrato.fechaFallo = this.getDate(this.contrato.fechaFallo);
+    this.contrato.fechaSolicitudContrato = this.getDate(this.contrato.fechaSolicitudContrato);
+    this.contrato.fechaProgramadaEntrega = this.getDate(this.contrato.fechaProgramadaEntrega);
+    this.contrato.fechaJuridico = this.getDate(this.contrato.fechaJuridico);
+    this.visible = true;
+    this.editar = true;
+  }
+
+  getDate(date: any) {
+    return date ? new Date(date) : date;
+  }
+
+  save() {
+    if(!this.contrato.proyecto || !this.contrato.folio || !this.contrato.centroCosto 
+      || !this.contrato.fechaFirmadoCliente || !this.contrato.fechaVencimientoContrato
+      || !this.contrato.importeContratado || !this.contrato.anticipoContratado) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los campos requeridos' });
+    } else {
+      this.service.initProgress();
+      if(!this.contrato.estado) {
+        this.contrato.estado = 'Activo';
+      }
+      this.service.post(this.contrato, "contratos").then((data: any) => {
+        this.postSave();
+      }).catch((error: any) => {
+        this.postError(error);
+      });
+
+    }
+  }
+
+  download() {
+    this.export = false;
+    let url = this.service.configUrl;
+    if(this.format == '1') {
+      url = url + 'api/excel/contratos?';
+    } else {
+      url = url + 'api/pdf/contratos?';
+    }
+   
+    url = url + new URLSearchParams(this.getFilterExport());
+    this.format = '1';
+    window.open(url);
+  }
+
+  getFilterExport() {
+    let filter:any = {};
+    filter.proyecto = this.getParameterFilter(this.filter.proyecto);
+    filter.folio = this.getParameterFilter(this.filter.folio);
+    filter.especialidad = this.getParameterFilter(this.filter.especialidad);
+    filter.estado = this.getParameterFilter(this.filter.estado); 
+    filter.proveedor = this.getParameterFilter(this.filter.proveedor); 
+    return filter;
+  }
+
+  getParameterFilter(parameter: any) {
+    return parameter ? parameter : '';
+  }
+
+  postSave() {
+    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato guardado con exitosamente' });
+    this.visible = false;
+    this.changeState = false;
+    this.export = false;
+    this.loadData();
+  }
+
+  postError(error: any) {
+    this.service.finishProgress();
+    console.error(error);
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el contrato' });
+  }
+
+  changeStatus(contrato: any, estado = 'Inactivo') {
+    this.contrato = {...contrato};
+    this.contrato.estado = estado;
+    this.estado = estado;
+    this.changeState = true;
   }
 
 }

@@ -11,13 +11,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime-ng/prime.module';
 import { AppService } from './app.service';
+import { MomentPipe } from './moment.pipe';
+import { BadgeComponent } from './badge/badge.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ContratosComponent
+    ContratosComponent,
+    MomentPipe,
+    BadgeComponent
   ],
   imports: [
     BrowserModule,

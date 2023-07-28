@@ -28,4 +28,8 @@ export class AppService {
         }
         return this.http.get(this.configUrl + url + new URLSearchParams(filter) + sort).toPromise();
     }
+
+    post(object: any, url: string): Promise<any> {
+        return this.http.post(this.configUrl + url, object).toPromise();
+    }
 }

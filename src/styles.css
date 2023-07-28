@@ -5,3 +5,104 @@
 @import "primeicons/primeicons.css";
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Poppins:ital,wght@0,600;0,700;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?&family=Poppins:ital,wght@0,600;0,700;1,600&display=swap');
+
+
+input {
+    width: 100%;
+    border: 1px solid #C6D5DE !important;
+    padding: 0px 0px 0px 6px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 16px;
+    box-shadow: none !important;
+    color: #1E3645;
+  }
+  
+  input:focus {
+    outline: none !important;
+    border: 2px solid #FEBE10 !important;
+    box-shadow: 0 0 5px #CC9F53 !important;
+  }
+  
+  input:disabled {
+    background: #DDE6EB;
+    color: #AFC4D1;
+  }
+  
+  input::-webkit-input-placeholder { /* Edge */
+    font-size: 14px;
+    color: #C6D5DE;
+    font: oblique 16px Open Sans;
+  }
+  
+  input::-ms-input-placeholder { /* Internet Explorer */
+    font-size: 14px;
+    color: #C6D5DE;
+    font: oblique 16px Open Sans;
+  }
+  
+  input::placeholder {
+    font-size: 14px;
+    color: #C6D5DE;
+    font: oblique 16px Open Sans;
+  }
+
+.overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+}
+  
+  ::-webkit-scrollbar {
+    height: 9px;
+    overflow: visible;
+    width: 9px;
+  }
+  
+  ::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-clip: padding-box;
+    box-shadow: inset 1px 0 0 #e6e6e6;
+    margin-bottom: 2px !important;
+  }
+  
+  ::-webkit-scrollbar-track:hover {
+    background-color: #f3f3f3;
+    box-shadow: inset 1px 0 0 #e6e6e6
+  }
+  
+  ::-webkit-scrollbar-track:active {
+    background-color: #f3f3f3;
+    box-shadow: inset 1px 0 0 #dcdcdc,
+    inset -1px 0 0 #eeeeee
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(223, 222, 222);
+    border-radius: 4px;
+    background-color: #cccccc;
+    background-clip: padding-box;
+    border: solid transparent;
+    border-width: 1px 1px 1px 0px;
+    min-height: 28px;
+    padding: 100px 0 0;
+    box-shadow: inset 1px 1px 0 #e6e6e6,
+    inset 0 -1px 0 #eeeeee
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #fcbb76;
+    box-shadow: inset 1px 1px 1px #c0c0c0
+  }
+  
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #f7941e;
+    box-shadow: inset 1px 1px 3px #a6a6a6
+  }
+
+  .required:after {
+    content:" *";
+    color: red;
+  }

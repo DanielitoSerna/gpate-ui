@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
         ]
       },
       {
-        label: 'Obra',
+        label: 'Contrucción',
         items: [
           {
             label: 'Avance de obra',
@@ -71,6 +71,9 @@ export class AppComponent implements OnInit {
             command: (event) => {console.log("avance de obra")}
           }
         ]
+      },
+      {
+        label: 'Comercialización'
       },
       {
         label: 'Salir',

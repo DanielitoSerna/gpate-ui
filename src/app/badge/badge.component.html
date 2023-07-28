@@ -1,0 +1,8 @@
+<div class="badge {{type}}" style="{{'background-color:' + fondo + ';' + 'color:' + texto}}">
+  <span pTooltip="{{tooltip}}"
+        p-tooltip-t0ext>
+    <i *ngIf="icon" class="pi pi-{{iconType}} fs_15  {{bold ? 'p-text-bold' : ''}}"></i>
+    <i *ngIf="iconCss" class="{{iconType}} p-ml-0"></i>
+    {{text}}
+  </span>
+</div>
