@@ -1,0 +1,71 @@
+<div class="web-form">
+    <div class="grid">
+        <div class="col-12">
+            <label class="required">Número de contrato</label>
+            <div class="pb-2"></div>
+            <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" (completeMethod)="loadData($event)" field="folio">
+                <ng-template let-contrat pTemplate="item">
+                    <div class="grid">
+                        <div class="col-12" style="padding: 0px;">
+                            {{contrat.folio}}
+                        </div>
+                        <div class="col-12 app-description" style="padding: 0px;">
+                            {{contrat.proyecto}} - {{contrat.especialidad}} - {{contrat.proveedor}}
+                        </div>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+        </div>
+        <div class="col-12" *ngIf="contrato.folio">
+            <div class="col-12">
+                <label>Proyecto: </label>
+                <span class="pr-2"></span>
+                <span class="app-description">{{contrato.proyecto}}</span>
+            </div>
+            <div class="col-12">
+                <label>Especialidad: </label>
+                <span class="pr-2"></span>
+                <span class="app-description">{{contrato.especialidad}}</span>
+            </div>
+            <div class="col-12">
+                <label>Proveedor: </label>
+                <span class="pr-2"></span>
+                <span class="app-description">{{contrato.proveedor}}</span>
+            </div>
+        </div>
+        <div class="col-6">
+            <label class="required">Fecha de operación</label>
+            <div class="pb-2"></div>
+            <p-calendar [(ngModel)]="estimacion.fechaFirmadoCliente" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"></p-calendar>
+        </div>
+        <div class="col-6">
+            <label class="required">Importe</label>
+            <div class="pb-2"></div>
+            <p-inputNumber [(ngModel)]="estimacion.importeContratado" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
+        </div>
+        <div class="col-6">
+            <label class="required">Tipo de registro</label>
+            <div class="pb-2"></div>
+            <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.estado" optionLabel="name" 
+            optionValue="code"
+            placeholder="Selecione una opción"></p-dropdown>
+        </div>
+        <div class="col-6">
+            <label class="required">Número de abono</label>
+            <div class="pb-2"></div>
+            <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.estado" optionLabel="name" 
+            optionValue="code"
+            placeholder="Selecione una opción"></p-dropdown>
+        </div>
+        <div class="col-12">
+            <label>Observaciones</label>
+            <div class="pb-2"></div>
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
+        </div>
+    </div>
+    <div class="pb-4"></div>
+    <div class="flex flex-wrap justify-content-end gap-2">
+        <p-button label="Cancelar" styleClass="p-button-secondary" (click)="cancel()"></p-button>
+        <p-button icon="pi pi-save" label="Guardar" styleClass="p-button-warning" (click)="save()"></p-button>
+    </div>
+</div>

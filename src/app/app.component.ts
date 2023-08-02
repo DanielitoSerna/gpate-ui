@@ -25,11 +25,12 @@ export class AppComponent implements OnInit {
           {
             label: 'Contratos',
             icon: 'pi pi-fw pi-file-edit',
-            command: (event) => {this.router.navigate(["/contratos"])}
+            command: (event) => {this.router.navigate(["/web-contratos"])}
           },
           {
             label: 'Estimaciones y pagos',
-            icon: 'pi pi-fw pi-money-bill'
+            icon: 'pi pi-fw pi-money-bill',
+            command: (event) => {this.router.navigate(["/web-estimaciones-pagos"])}
           },
           {
             label: 'Estados de cuenta',
@@ -44,6 +45,19 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-chart-line'
           },
         ]
+      },
+      {
+        label: 'Contrucción',
+        items: [
+          {
+            label: 'Avance de obra',
+            icon: 'pi pi-fw pi-directions',
+            command: (event) => {console.log("avance de obra")}
+          }
+        ]
+      },
+      {
+        label: 'Comercialización'
       },
       {
         label: 'Administración de usuarios',
@@ -61,19 +75,6 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-users'
           }
         ]
-      },
-      {
-        label: 'Contrucción',
-        items: [
-          {
-            label: 'Avance de obra',
-            icon: 'pi pi-fw pi-directions',
-            command: (event) => {console.log("avance de obra")}
-          }
-        ]
-      },
-      {
-        label: 'Comercialización'
       },
       {
         label: 'Salir',

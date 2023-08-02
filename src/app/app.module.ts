@@ -11,8 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime-ng/prime.module';
 import { AppService } from './app.service';
-import { MomentPipe } from './moment.pipe';
+import { MomentPipe } from './pipes/moment.pipe';
 import { BadgeComponent } from './badge/badge.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { BadgeComponent } from './badge/badge.component';
     LoginComponent,
     ContratosComponent,
     MomentPipe,
-    BadgeComponent
+    BadgeComponent,
+    TruncatePipe,
+    EstimacionesPagosComponent
   ],
   imports: [
     BrowserModule,

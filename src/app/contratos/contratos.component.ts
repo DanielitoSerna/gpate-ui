@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from 'primeng/api';
-import { MomentPipe } from '../moment.pipe';
 
 @Component({
   selector: 'app-contratos',
@@ -109,7 +108,7 @@ export class ContratosComponent implements OnInit {
   save() {
     if(!this.contrato.proyecto || !this.contrato.folio || !this.contrato.centroCosto 
       || !this.contrato.fechaFirmadoCliente || !this.contrato.fechaVencimientoContrato
-      || !this.contrato.importeContratado || !this.contrato.anticipoContratado) {
+      || this.contrato.importeContratado == null || this.contrato.anticipoContratado == null) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los campos requeridos' });
     } else {
       this.service.initProgress();

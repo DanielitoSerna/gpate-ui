@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<p-table [value]="contracts" styleClass="p-datatable-sm"
+<p-table [value]="contracts"
         sortMode="single"
         (sortFunction)="sort($event)"
         [customSort]="true"
@@ -47,106 +47,112 @@
         responsiveLayout="scroll"
         [scrollable]="true"
         scrollHeight="62vh"
-        styleClass="p-datatable-sm">   
+        styleClass="p-datatable-sm p-datatable-gridlines">   
     <ng-template pTemplate="header">
         <tr>
             <th colspan="5" style="border-right: 1px solid;">INFORMACIÓN DEL CONTRATO</th>
-            <th colspan="5" style="border-right: 1px solid; background: #30261D;">INFORMACIÓN FINANCIERA</th>
+            <th colspan="7" style="border-right: 1px solid; background: #30261D;">INFORMACIÓN FINANCIERA</th>
             <th colspan="13" style="background: #F59E0B;">INFORMACIÓN LEGAL</th>
         </tr>
         <tr>
             <th style="min-width:100px">Acciones</th>
-            <th style="min-width:120px" pSortableColumn="proyecto">
+            <th class="fitwidth" pSortableColumn="proyecto">
                 Proyecto
                 <p-sortIcon field="proyecto"></p-sortIcon>
             </th>
-            <th style="min-width:120px" pSortableColumn="folio">
+            <th class="fitwidth" pSortableColumn="folio">
                 Folio
                 <p-sortIcon field="folio"></p-sortIcon>
             </th>
-            <th style="min-width:132px" pSortableColumn="especialidad">
+            <th class="fitwidth" pSortableColumn="especialidad">
                 Especialidad
                 <p-sortIcon field="especialidad"></p-sortIcon>
             </th>
-            <th style="min-width:120px" pSortableColumn="proveedor">
+            <th class="fitwidth" pSortableColumn="proveedor">
                 Proveedor
                 <p-sortIcon field="proveedor"></p-sortIcon>
             </th>
-            <th style="min-width:80px">Estimaciones programadas</th>
-            <th style="min-width:80px">Estimaciones pagadas</th>
-            <th style="min-width:80px">Pagos aplicados</th>
-            <th style="min-width:80px">Saldo pendiente</th>
-            <th style="min-width:120px">Centro de costos</th>
-            <th style="min-width:80px" pSortableColumn="fechaFallo">
+            <th class="fitwidth">Importe contratado</th>
+            <th class="fitwidth">Anticipo contratado</th>
+            <th class="fitwidth">Estimaciones programadas</th>
+            <th class="fitwidth">Estimaciones pagadas</th>
+            <th class="fitwidth">Pagos aplicados</th>
+            <th class="fitwidth">Saldo pendiente</th>
+            <th class="fitwidth">Centro de costos</th>
+            <th class="fitwidth" pSortableColumn="fechaFallo">
                 Fecha fallo
                 <p-sortIcon field="fechaFallo"></p-sortIcon>
             </th>
-            <th style="min-width:110px" pSortableColumn="fechaSolicitudContrato">
+            <th class="fitwidth" pSortableColumn="fechaSolicitudContrato">
                 Fecha solicitud
                 <p-sortIcon field="fechaSolicitudContrato"></p-sortIcon>
             </th>
-            <th style="min-width:110px" pSortableColumn="fechaProgramadaEntrega">
+            <th class="fitwidth" pSortableColumn="fechaProgramadaEntrega">
                 Fecha de entrega
                 <p-sortIcon field="fechaProgramadaEntrega"></p-sortIcon>
             </th>
-            <th style="min-width:60px">Días programados</th>
-            <th style="min-width:120px" pSortableColumn="fechaJuridico">
+            <th class="fitwidth">Días programados</th>
+            <th class="fitwidth" pSortableColumn="fechaJuridico">
                 Fecha entrega jurídico
                 <p-sortIcon field="fechaJuridico"></p-sortIcon>
             </th>
-            <th style="min-width:120px" pSortableColumn="fechaFirmadoCliente">
+            <th class="fitwidth" pSortableColumn="fechaFirmadoCliente">
                 Fecha entrega firmado
                 <p-sortIcon field="fechaFirmadoCliente"></p-sortIcon>
             </th>
-            <th style="min-width:300px">Observaciones</th>
-            <th style="min-width:120px">Estado</th>
-            <th style="min-width:80px">Días de atención</th>
-            <th style="min-width:130px" pSortableColumn="fechaVencimientoContrato">
+            <th class="fitwidth">Observaciones</th>
+            <th class="fitwidth">Estado general</th>
+            <th class="fitwidth">Días de atención</th>
+            <th class="fitwidth" pSortableColumn="fechaVencimientoContrato">
                 Fecha vencimiento
                 <p-sortIcon field="fechaVencimientoContrato"></p-sortIcon>
             </th>
-            <th style="min-width:80px">Días de vencimiento</th>
-            <th style="min-width:300px">Hipervínculo</th>
-            <th style="min-width:80px">Estado</th>
+            <th class="fitwidth">Días de vencimiento</th>
+            <th class="fitwidth">Hipervínculo</th>
+            <th class="fitwidth">Estado</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-contract>
-        <tr>
+        <tr class="{{contract.estado == 'Inactivo' ? 'row-inactive' : ''}}">
             <td>
                 <p-button icon="pi pi-pencil" 
                 styleClass="p-button-rounded p-button-secondary p-button-text" 
                 pTooltip="Editar"
                 (click)="edit(contract)"></p-button>
 
-                <p-button icon="pi pi-times" 
+                <p-button icon="pi pi-check" 
                 *ngIf="contract.estado == 'Activo'"
-                styleClass="p-button-rounded p-button-danger p-button-text" 
+                styleClass="p-button-rounded p-button-success p-button-text" 
                 pTooltip="Inactivar"
                 (click)="changeStatus(contract)"></p-button>
 
-                <p-button icon="pi pi-check" 
+                <p-button icon="pi pi-times" 
                 *ngIf="contract.estado == 'Inactivo'"
-                styleClass="p-button-rounded p-button-success p-button-text" 
+                styleClass="p-button-rounded p-button-danger p-button-text" 
                 pTooltip="Activar"
                 (click)="changeStatus(contract, 'Activo')"></p-button>
             </td>
-            <td>{{ contract.proyecto }}</td>
-            <td>{{ contract.folio }}</td>
-            <td>{{ contract.especialidad }}</td>
-            <td>{{ contract.proveedor }}</td>
-            <td style="text-align: end;">{{ contract.estimacionesProgramadas }}</td>
-            <td style="text-align: end;">{{ contract.estimacionesPagadas }}</td>
-            <td style="text-align: end;">{{ contract.pagosAplicados }}</td>
-            <td style="text-align: end;">{{ contract.saldoPendienteContrato }}</td>
-            <td>{{ contract.centroCosto }}</td>
+            <td class="fitwidth">{{ contract.proyecto}}</td>
+            <td class="fitwidth">{{ contract.folio}}</td>
+            <td class="fitwidth">{{ contract.especialidad}}</td>
+            <td class="fitwidth">{{ contract.proveedor}}</td>
+            <td style="text-align: end; font-weight: bold; color: #B41003;">{{ contract.importeContratado | currency}}</td>
+            <td style="text-align: end; font-weight: bold; color: #B41003;">{{ contract.anticipoContratado | currency}}</td>
+            <td style="text-align: end; font-weight: bold; color: #0339B4;">{{ contract.estimacionesProgramadas | currency}}</td>
+            <td style="text-align: end; font-weight: bold; color: #0339B4;">{{ contract.estimacionesPagadas | currency}}</td>
+            <td style="text-align: end; font-weight: bold;">{{ contract.pagosAplicados | currency}}</td>
+            <td style="text-align: end; font-weight: bold; color: #B41003;">{{ contract.saldoPendienteContrato | currency}}</td>
+            <td class="fitwidth">{{ contract.centroCosto}}</td>
             <td>{{ contract.fechaFallo | dateFormat: 'DD/MM/yyyy' }}</td>
             <td>{{ contract.fechaSolicitudContrato | dateFormat: 'DD/MM/yyyy' }}</td>
             <td>{{ contract.fechaProgramadaEntrega | dateFormat: 'DD/MM/yyyy' }}</td>
             <td style="text-align: end;">{{ contract.diasProgramados }}</td>
             <td>{{ contract.fechaJuridico | dateFormat: 'DD/MM/yyyy' }}</td>
             <td>{{ contract.fechaFirmadoCliente | dateFormat: 'DD/MM/yyyy' }}</td>
-            <td>{{ contract.observaciones }}</td>
-            <td>{{ contract.statusGeneral }}</td>
+            <td>
+                <span pTooltip="{{contract.observaciones}}">{{contract.observaciones | truncate}}</span>
+            </td>
+            <td class="fitwidth">{{ contract.statusGeneral }}</td>
             <td style="text-align: end;">{{ contract.diasAtencion }}</td>
             <td>{{ contract.fechaVencimientoContrato | dateFormat: 'DD/MM/yyyy'}}</td>
             <td style="text-align: end;">{{ contract.diasVencimiento }}</td>
@@ -177,17 +183,23 @@
             <div class="col-12">
                 <label class="required">Nombre del proyecto</label>
                 <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.proyecto" style="width: 400px;" required maxlength="100">
+                <input type="text" pInputText [(ngModel)]="contrato.proyecto" 
+                    (ngModelChange)="contrato.proyecto = contrato.proyecto.toUpperCase()"
+                    style="width: 400px;" required maxlength="100">
             </div>
             <div class="col-12">
                 <label class="required">Número de contrato y/o folio</label>
                 <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.folio" style="width: 400px;" required maxlength="100">
+                <input type="text" pInputText [(ngModel)]="contrato.folio" 
+                    (ngModelChange)="contrato.folio = contrato.folio.toUpperCase()"
+                    style="width: 400px;" required maxlength="100">
             </div>
             <div class="col-12">
                 <label class="required">Centro de costos</label>
                 <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.centroCosto" style="width: 400px;" required maxlength="50">
+                <input type="text" pInputText [(ngModel)]="contrato.centroCosto" 
+                    (ngModelChange)="contrato.centroCosto = contrato.centroCosto.toUpperCase()"
+                    style="width: 400px;" required maxlength="50">
             </div>
             <div class="col-6">
                 <label class="required">Fecha de inicio del contrato</label>
@@ -202,12 +214,12 @@
             <div class="col-6">
                 <label class="required">Monto del contrato</label>
                 <div class="pb-2"></div>
-                <p-inputNumber [(ngModel)]="contrato.importeContratado" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true"></p-inputNumber>
+                <p-inputNumber [(ngModel)]="contrato.importeContratado" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
             </div>
             <div class="col-6">
                 <label class="required">Monto del anticipo programado</label>
                 <div class="pb-2"></div>
-                <p-inputNumber [(ngModel)]="contrato.anticipoContratado" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true"></p-inputNumber>
+                <p-inputNumber [(ngModel)]="contrato.anticipoContratado" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
             </div>
             <div class="col-12">
                 <p-divider></p-divider>
@@ -215,12 +227,16 @@
             <div class="col-12">
                 <label>Especialidad</label>
                 <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.especialidad" style="width: 400px;" maxlength="100">
+                <input type="text" pInputText [(ngModel)]="contrato.especialidad" 
+                    (ngModelChange)="contrato.especialidad = contrato.especialidad.toUpperCase()"
+                    style="width: 400px;" maxlength="100">
             </div>
             <div class="col-12">
                 <label>Proveedor</label>
                 <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.proveedor" style="width: 400px;" maxlength="100">
+                <input type="text" pInputText [(ngModel)]="contrato.proveedor" 
+                    (ngModelChange)="contrato.proveedor = contrato.proveedor.toUpperCase()"
+                    style="width: 400px;" maxlength="100">
             </div>
             <div class="col-6">
                 <label>Fecha del fallo</label>
@@ -250,7 +266,7 @@
             <div class="col-12">
                 <label>Observaciones</label>
                 <div class="pb-2"></div>
-                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="contrato.observaciones" maxlength="255"></textarea>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="contrato.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
             </div>
         </div>
     </ng-template>
