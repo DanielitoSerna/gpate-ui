@@ -15,6 +15,7 @@ export class EstimacionesPagosComponent implements OnInit {
   contrato: any = {};
   estimacion:any = {};
   confirm = false;
+  confirmAbono = false;
 
   tipoRegistros = [
     {name: 'ANTICIPO', code: 'ANTICIPO'},
@@ -33,14 +34,6 @@ export class EstimacionesPagosComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.finishProgress();
-    for(let i = 1; i <= 200; i++) {
-      if(i < 10) {
-        this.abonos.push({name: '0' + i, code: '0' + i});
-      } else {
-        this.abonos.push({name: i.toString(), code: i.toString()});
-      }
-    }
-    
   }
 
 
@@ -65,7 +58,17 @@ export class EstimacionesPagosComponent implements OnInit {
     if(this.contrato != null && this.contrato.folio != null && 
       this.estimacion.fechaOperacion != null && this.estimacion.importe != null &&
       this.estimacion.concepto != null && this.estimacion.numeroAbono != null) {
-        this.confirm = true;
+        if(this.estimacion.concepto == 'ABONO') {
+          let abono = this.abonos.filter(abono => abono.code == this.estimacion.numeroAbono)[0];
+          let pendiente = abono.pendiente - this.estimacion.importe;
+          if(pendiente < 0) {
+            this.confirmAbono = true;
+          } else {
+            this.confirm = true;
+          }
+        } else {
+          this.confirm = true;
+        }
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los datos requeridos' });
       }
@@ -77,6 +80,7 @@ export class EstimacionesPagosComponent implements OnInit {
     this.service.post(this.estimacion, 'estimacionPago').then(_data => {
       this.service.finishProgress();
       this.confirm = false;
+      this.confirmAbono = false;
       window.location.reload();
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado con exitosamente' });
     }).catch(e => {
@@ -92,5 +96,55 @@ export class EstimacionesPagosComponent implements OnInit {
 
   cancel() {
     this.location.back();
+  }
+
+  getConsecutive() {
+    if(this.contrato.id && this.estimacion.concepto) {
+      this.estimacion.numeroAbono = undefined;
+      this.abonos = [];
+      let filter = {
+        contrato: this.contrato.id,
+        concepto: this.estimacion.concepto
+      }
+      this.service.initProgress();
+      if(this.estimacion.concepto == 'ABONO') {
+        this.service.filter(filter, 'estimacionPago/search/getNumeroAbonoByContrato?').then(data => {
+          this.service.finishProgress();
+          let datos = data._embedded;
+          if(datos && datos.estimacionPago.length > 0) {
+            datos.estimacionPago.forEach((estimacion: any) => {
+              let abono = estimacion.importeAbono ? estimacion.importeAbono : 0
+              this.abonos.push({
+                name: estimacion.numeroAbono, 
+                code: estimacion.numeroAbono,
+                monto: estimacion.importe,
+                abonos: abono,
+                pendiente: estimacion.importe - abono
+              });
+            });
+          }
+        });
+      } else {
+        this.service.filter(filter, 'estimacionPago/search/getNumeroAbonoByConcepto?').then(data => {
+          this.service.finishProgress();
+          let datos = data._embedded;
+          if(datos && datos.estimacionPago.length > 0) {
+            let estimacion = datos.estimacionPago[0];
+            let consecutivo:any = new Number(estimacion.numeroAbono);
+            consecutivo = consecutivo + 1;
+            let code = '0';
+            if(consecutivo <= 9) {
+              code = code + consecutivo;
+            } else {
+              code = consecutivo.toString();
+            }
+            this.abonos.push({name: code, code: code})
+          } else {
+            this.abonos.push({name: '01', code: '01'});
+          }
+          this.estimacion.numeroAbono = this.abonos[0].code;
+        });
+      }
+    }
   }
 }

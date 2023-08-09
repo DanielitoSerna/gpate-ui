@@ -5,7 +5,8 @@
             <div class="pb-2"></div>
             <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" 
                 (completeMethod)="loadData($event)" field="folio"
-                placeholder="Digite el folio o número de contraro">
+                placeholder="Digite el folio o número de contraro"
+                (onSelect)="getConsecutive()">
                 <ng-template let-contrat pTemplate="item">
                     <div class="grid">
                         <div class="col-12" style="padding: 0px;">
@@ -34,6 +35,38 @@
                 <span class="pr-2"></span>
                 <span class="app-description">{{contrato.proveedor}}</span>
             </div>
+            <div class="col-12">
+                <label>Monto: </label>
+                <span class="pr-2"></span>
+                <span class="app-description">{{contrato.importeContratado | currency}}</span>
+            </div>
+        </div>
+        <div class="col-6">
+            <label class="required">Tipo de registro</label>
+            <div class="pb-2"></div>
+            <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.concepto" optionLabel="name" 
+            optionValue="code"
+            placeholder="Selecione una opción"
+            (onChange)="getConsecutive()"></p-dropdown>
+        </div>
+        <div class="col-6">
+            <label class="required">Número de {{estimacion.concepto?.toLowerCase()}}</label>
+            <div class="pb-2"></div>
+            <p-dropdown [options]="abonos" [(ngModel)]="estimacion.numeroAbono" optionLabel="name" 
+            optionValue="code"
+            placeholder="Selecione una opción">
+            <ng-template let-item pTemplate="item">
+                <div class="grid">
+                    <div class="col-12" style="padding: 0px;">
+                        <strong>{{item.code}}</strong>
+                    </div>
+                    <div class="col-12 app-description" style="padding: 0px;" *ngIf="item.monto">
+                        <strong>Monto:</strong> {{item.monto | currency}} <br>
+                        <strong>Abonos:</strong> {{item.abonos | currency}}
+                    </div>
+                </div>
+            </ng-template>
+            </p-dropdown>
         </div>
         <div class="col-6">
             <label class="required">Fecha de operación</label>
@@ -41,26 +74,12 @@
             <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"></p-calendar>
         </div>
         <div class="col-6">
-            <label class="required">Importe</label>
+            <label class="required">Importe {{estimacion.concepto?.toLowerCase()}}</label>
             <div class="pb-2"></div>
             <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
         </div>
-        <div class="col-6">
-            <label class="required">Tipo de registro</label>
-            <div class="pb-2"></div>
-            <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.concepto" optionLabel="name" 
-            optionValue="code"
-            placeholder="Selecione una opción"></p-dropdown>
-        </div>
-        <div class="col-6">
-            <label class="required">Número de abono</label>
-            <div class="pb-2"></div>
-            <p-dropdown [options]="abonos" [(ngModel)]="estimacion.numeroAbono" optionLabel="name" 
-            optionValue="code"
-            placeholder="Selecione una opción"></p-dropdown>
-        </div>
         <div class="col-12">
-            <label>Observaciones</label>
+            <label>Observaciones {{estimacion.concepto?.toLowerCase()}}</label>
             <div class="pb-2"></div>
             <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
         </div>
@@ -81,6 +100,19 @@
     <div class="pb-4"></div>
     <div class="flex flex-wrap justify-content-end gap-2">
         <p-button label="Cancelar" styleClass="p-button-secondary" (click)="confirm = false"></p-button>
+        <p-button label="Si, continuar" styleClass="p-button-warning" (click)="confirmSave()"></p-button>
+    </div>
+</p-dialog>
+
+<p-dialog header="Confirmación" [(visible)]="confirmAbono" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+        El valor del importe supera el valor pendiente de la estimación: <strong>{{estimacion.numeroAbono}}</strong>
+        <br>
+        ¿Esta seguro que desea continuar?
+    </p>
+    <div class="pb-4"></div>
+    <div class="flex flex-wrap justify-content-end gap-2">
+        <p-button label="Cancelar" styleClass="p-button-secondary" (click)="confirmAbono = false"></p-button>
         <p-button label="Si, continuar" styleClass="p-button-warning" (click)="confirmSave()"></p-button>
     </div>
 </p-dialog>
