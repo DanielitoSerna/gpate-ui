@@ -3,6 +3,10 @@
         <p-toast position="top-left"></p-toast>
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
         <p-button (click)="menu.toggle($event)" icon="pi pi-bars" label="Menú" styleClass="p-button-warning"></p-button>
+        <label class="app-titulo">
+            {{route}}
+        </label>
+        
     </div>
     <a href="http://www.gpate.mx/" target="_blank" routerLinkActive="router-link-active" class="app_header__brandContainer" rel="noopener">
       <img width="250" alt="Angular Logo" src="../../../assets/logo.png"/>

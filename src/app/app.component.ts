@@ -11,10 +11,11 @@ import { AppService } from './app.service';
 export class AppComponent implements OnInit {
   title = 'gpate-ui';
   items: MenuItem[] | undefined = [];
+  route = '';
 
   constructor(public router: Router,
     public service: AppService) {
-
+      this.getRouteByUrl();
   }
 
   ngOnInit(): void {
@@ -25,12 +26,18 @@ export class AppComponent implements OnInit {
           {
             label: 'Contratos',
             icon: 'pi pi-fw pi-file-edit',
-            command: (event) => {this.router.navigate(["/web-contratos"])}
+            command: (event) => {
+              this.router.navigate(["/web-contratos"]);
+              this.route = 'Contratos';
+            }
           },
           {
             label: 'Estimaciones y pagos',
             icon: 'pi pi-fw pi-money-bill',
-            command: (event) => {this.router.navigate(["/web-estimaciones-pagos"])}
+            command: (event) => {
+              this.router.navigate(["/web-estimaciones-pagos"]);
+              this.route = 'Estimaciones y pagos';
+            }
           },
           {
             label: 'Estados de cuenta',
@@ -80,5 +87,14 @@ export class AppComponent implements OnInit {
         label: 'Salir',
       }
     ];
+  }
+
+  getRouteByUrl() {
+    let url:any = this.router.url;
+    if(url == '/web-contratos') {
+      this.route = 'Contratos';
+    } else if(url == '/web-estimaciones-pagos') {
+      this.route = 'Estimaciones y pagos';
+    }
   }
 }

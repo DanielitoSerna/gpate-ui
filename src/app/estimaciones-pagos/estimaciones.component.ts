@@ -16,6 +16,7 @@ export class EstimacionesPagosComponent implements OnInit {
   estimacion:any = {};
   confirm = false;
   confirmAbono = false;
+  liquidado = false;
 
   tipoRegistros = [
     {name: 'ANTICIPO', code: 'ANTICIPO'},
@@ -99,6 +100,11 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   getConsecutive() {
+    if(this.contrato.saldoPendienteContrato == 0) {
+      this.liquidado = true
+    } else {
+      this.liquidado = false;
+    }
     if(this.contrato.id && this.estimacion.concepto) {
       this.estimacion.numeroAbono = undefined;
       this.abonos = [];

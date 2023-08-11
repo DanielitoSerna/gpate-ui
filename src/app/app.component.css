@@ -63,6 +63,8 @@
     height: 90vh;
     font: normal normal 600 14px/19px Open, Sans-serif;
     font-size: 14px;
+    background-color: #f7f6f5;
+    overflow: auto;
 }
 
 .spinner {
@@ -137,5 +139,12 @@
 ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
   width: 35px !important;
   height: 35px !important;
+}
+
+.app-titulo {
+  font-size: 20px;
+  color: white;
+  padding-left: 20px;
+  padding-bottom: 10px;
 }
   

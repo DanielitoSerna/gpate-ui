@@ -1,99 +1,105 @@
 <div class="web-form">
-    <div class="grid">
-        <div class="col-12">
-            <label class="required">Número de contrato</label>
-            <div class="pb-2"></div>
-            <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" 
-                (completeMethod)="loadData($event)" field="folio"
-                placeholder="Digite el folio o número de contraro"
-                (onSelect)="getConsecutive()">
-                <ng-template let-contrat pTemplate="item">
+    <div class="app-frorm">
+        <div class="grid">
+            <div class="col-12">
+                <label class="required">Número de contrato</label>
+                <div class="pb-2"></div>
+                <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" 
+                    (completeMethod)="loadData($event)" field="folio"
+                    placeholder="Digite el folio o número de contraro"
+                    (onSelect)="getConsecutive()">
+                    <ng-template let-contrat pTemplate="item">
+                        <div class="grid">
+                            <div class="col-12" style="padding: 0px;">
+                                <strong>{{contrat.folio}}</strong>
+                            </div>
+                            <div class="col-12 app-filter" style="padding: 0px;">
+                                {{contrat.proyecto}} - {{contrat.especialidad}} - {{contrat.proveedor}}
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-autoComplete>
+            </div>
+            <div class="col-12" *ngIf="contrato.folio">
+                <div class="col-12">
+                    <label>Proyecto: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.proyecto}}</span>
+                </div>
+                <div class="col-12">
+                    <label>Especialidad: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.especialidad}}</span>
+                </div>
+                <div class="col-12">
+                    <label>Proveedor: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.proveedor}}</span>
+                </div>
+                <div class="col-12">
+                    <label>Monto: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.importeContratado | currency}}</span>
+                </div>
+                <div class="col-12 app-filter" *ngIf="liquidado">
+                    <span class="pi pi-info-circle"></span>
+                    El contrato se encuentra liquidado, no se pueden realizar acciones
+                </div>
+            </div>
+            <div class="col-6">
+                <label class="required">Tipo de registro</label>
+                <div class="pb-2"></div>
+                <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.concepto" optionLabel="name" 
+                optionValue="code"
+                placeholder="Selecione una opción"
+                (onChange)="getConsecutive()"></p-dropdown>
+            </div>
+            <div class="col-6">
+                <label class="required">Número de {{estimacion.concepto?.toLowerCase()}}</label>
+                <div class="pb-2"></div>
+                <p-dropdown [options]="abonos" [(ngModel)]="estimacion.numeroAbono" optionLabel="name" 
+                optionValue="code"
+                placeholder="Selecione una opción">
+                <ng-template let-item pTemplate="item">
                     <div class="grid">
                         <div class="col-12" style="padding: 0px;">
-                            {{contrat.folio}}
+                            <strong>{{item.code}}</strong>
                         </div>
-                        <div class="col-12 app-description" style="padding: 0px;">
-                            {{contrat.proyecto}} - {{contrat.especialidad}} - {{contrat.proveedor}}
+                        <div class="col-12 app-filter" style="padding: 0px;" *ngIf="item.monto">
+                            <strong>Monto:</strong> {{item.monto | currency}} <br>
+                            <strong>Abonos:</strong> {{item.abonos | currency}}
                         </div>
                     </div>
                 </ng-template>
-            </p-autoComplete>
-        </div>
-        <div class="col-12" *ngIf="contrato.folio">
-            <div class="col-12">
-                <label>Proyecto: </label>
-                <span class="pr-2"></span>
-                <span class="app-description">{{contrato.proyecto}}</span>
+                </p-dropdown>
+            </div>
+            <div class="col-6">
+                <label class="required">Fecha de operación</label>
+                <div class="pb-2"></div>
+                <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"></p-calendar>
+            </div>
+            <div class="col-6">
+                <label class="required">Importe {{estimacion.concepto?.toLowerCase()}}</label>
+                <div class="pb-2"></div>
+                <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
             </div>
             <div class="col-12">
-                <label>Especialidad: </label>
-                <span class="pr-2"></span>
-                <span class="app-description">{{contrato.especialidad}}</span>
-            </div>
-            <div class="col-12">
-                <label>Proveedor: </label>
-                <span class="pr-2"></span>
-                <span class="app-description">{{contrato.proveedor}}</span>
-            </div>
-            <div class="col-12">
-                <label>Monto: </label>
-                <span class="pr-2"></span>
-                <span class="app-description">{{contrato.importeContratado | currency}}</span>
+                <label>Observaciones {{estimacion.concepto?.toLowerCase()}}</label>
+                <div class="pb-2"></div>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
             </div>
         </div>
-        <div class="col-6">
-            <label class="required">Tipo de registro</label>
-            <div class="pb-2"></div>
-            <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.concepto" optionLabel="name" 
-            optionValue="code"
-            placeholder="Selecione una opción"
-            (onChange)="getConsecutive()"></p-dropdown>
+        <div class="pb-4"></div>
+        <div class="flex flex-wrap justify-content-end gap-2" *ngIf="!liquidado">
+            <p-button label="Cancelar" styleClass="p-button-secondary" (click)="cancel()"></p-button>
+            <p-button icon="pi pi-save" label="Guardar" styleClass="p-button-warning" (click)="save()"></p-button>
         </div>
-        <div class="col-6">
-            <label class="required">Número de {{estimacion.concepto?.toLowerCase()}}</label>
-            <div class="pb-2"></div>
-            <p-dropdown [options]="abonos" [(ngModel)]="estimacion.numeroAbono" optionLabel="name" 
-            optionValue="code"
-            placeholder="Selecione una opción">
-            <ng-template let-item pTemplate="item">
-                <div class="grid">
-                    <div class="col-12" style="padding: 0px;">
-                        <strong>{{item.code}}</strong>
-                    </div>
-                    <div class="col-12 app-description" style="padding: 0px;" *ngIf="item.monto">
-                        <strong>Monto:</strong> {{item.monto | currency}} <br>
-                        <strong>Abonos:</strong> {{item.abonos | currency}}
-                    </div>
-                </div>
-            </ng-template>
-            </p-dropdown>
-        </div>
-        <div class="col-6">
-            <label class="required">Fecha de operación</label>
-            <div class="pb-2"></div>
-            <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"></p-calendar>
-        </div>
-        <div class="col-6">
-            <label class="required">Importe {{estimacion.concepto?.toLowerCase()}}</label>
-            <div class="pb-2"></div>
-            <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
-        </div>
-        <div class="col-12">
-            <label>Observaciones {{estimacion.concepto?.toLowerCase()}}</label>
-            <div class="pb-2"></div>
-            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
-        </div>
-    </div>
-    <div class="pb-4"></div>
-    <div class="flex flex-wrap justify-content-end gap-2">
-        <p-button label="Cancelar" styleClass="p-button-secondary" (click)="cancel()"></p-button>
-        <p-button icon="pi pi-save" label="Guardar" styleClass="p-button-warning" (click)="save()"></p-button>
     </div>
 </div>
 
 <p-dialog header="Confirmación" [(visible)]="confirm" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
     <p class="m-0">
-        Esta transacción afectará los valores del contrato: <strong>{{contrato.folio}}</strong>
+        Esta transacción se cargará al contrato: <strong>{{contrato.folio}}</strong>
         <br>
         ¿Esta seguro que desea continuar?
     </p>
@@ -104,15 +110,11 @@
     </div>
 </p-dialog>
 
-<p-dialog header="Confirmación" [(visible)]="confirmAbono" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Alerta" [(visible)]="confirmAbono" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
     <p class="m-0">
         El valor del importe supera el valor pendiente de la estimación: <strong>{{estimacion.numeroAbono}}</strong>
         <br>
-        ¿Esta seguro que desea continuar?
+        Por favor verifique la información
     </p>
     <div class="pb-4"></div>
-    <div class="flex flex-wrap justify-content-end gap-2">
-        <p-button label="Cancelar" styleClass="p-button-secondary" (click)="confirmAbono = false"></p-button>
-        <p-button label="Si, continuar" styleClass="p-button-warning" (click)="confirmSave()"></p-button>
-    </div>
 </p-dialog>

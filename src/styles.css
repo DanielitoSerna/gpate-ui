@@ -118,5 +118,17 @@ input {
 
 .app-description {
   font-style: italic;
-  color: #acaaa9;
+  color: #7f7f7d;
+}
+
+.app-filter {
+  font-style: italic;
+  color: #5f4e3c;
+}
+
+.app-frorm {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #AFC4D1;
+  padding: 30px;
 }
