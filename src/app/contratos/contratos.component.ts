@@ -106,8 +106,8 @@ export class ContratosComponent implements OnInit {
   }
 
   save() {
-    if(!this.contrato.proyecto || !this.contrato.folio 
-      || this.contrato.importeContratado == null || this.contrato.anticipoContratado == null) {
+    if(!this.contrato.proyecto || !this.contrato.folio || !this.contrato.especialidad || !this.contrato.centroCosto
+      || !this.contrato.proveedor || this.contrato.importeContratado == null || this.contrato.anticipoContratado == null) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los campos requeridos' });
     } else {
       this.service.initProgress();

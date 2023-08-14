@@ -194,6 +194,27 @@
                     (ngModelChange)="contrato.folio = contrato.folio.toUpperCase()"
                     style="width: 400px;" required maxlength="100">
             </div>
+            <div class="col-12">
+                <label class="required">Especialidad</label>
+                <div class="pb-2"></div>
+                <input type="text" pInputText [(ngModel)]="contrato.especialidad" 
+                    (ngModelChange)="contrato.especialidad = contrato.especialidad.toUpperCase()"
+                    style="width: 400px;" required maxlength="100">
+            </div>
+            <div class="col-12">
+                <label class="required">Proveedor</label>
+                <div class="pb-2"></div>
+                <input type="text" pInputText [(ngModel)]="contrato.proveedor" 
+                    (ngModelChange)="contrato.proveedor = contrato.proveedor.toUpperCase()"
+                    style="width: 400px;" required maxlength="100">
+            </div>
+            <div class="col-12">
+                <label class="required">Centro de costos</label>
+                <div class="pb-2"></div>
+                <input type="text" pInputText [(ngModel)]="contrato.centroCosto" 
+                    (ngModelChange)="contrato.centroCosto = contrato.centroCosto.toUpperCase()"
+                    style="width: 400px;" required maxlength="50">
+            </div>
             <div class="col-6">
                 <label class="required">Monto del contrato</label>
                 <div class="pb-2"></div>
@@ -206,27 +227,6 @@
             </div>
             <div class="col-12">
                 <p-divider></p-divider>
-            </div>
-            <div class="col-12">
-                <label>Especialidad</label>
-                <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.especialidad" 
-                    (ngModelChange)="contrato.especialidad = contrato.especialidad.toUpperCase()"
-                    style="width: 400px;" maxlength="100">
-            </div>
-            <div class="col-12">
-                <label>Proveedor</label>
-                <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.proveedor" 
-                    (ngModelChange)="contrato.proveedor = contrato.proveedor.toUpperCase()"
-                    style="width: 400px;" maxlength="100">
-            </div>
-            <div class="col-12">
-                <label>Centro de costos</label>
-                <div class="pb-2"></div>
-                <input type="text" pInputText [(ngModel)]="contrato.centroCosto" 
-                    (ngModelChange)="contrato.centroCosto = contrato.centroCosto.toUpperCase()"
-                    style="width: 400px;" maxlength="50">
             </div>
             <div class="col-6">
                 <label>Fecha de inicio del contrato</label>
