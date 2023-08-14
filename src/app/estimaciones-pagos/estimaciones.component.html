@@ -52,14 +52,16 @@
                 <p-dropdown [options]="tipoRegistros" [(ngModel)]="estimacion.concepto" optionLabel="name" 
                 optionValue="code"
                 placeholder="Selecione una opción"
-                (onChange)="getConsecutive()"></p-dropdown>
+                (onChange)="getConsecutive()"
+                [disabled]="liquidado"></p-dropdown>
             </div>
             <div class="col-6">
                 <label class="required">Número de {{estimacion.concepto?.toLowerCase()}}</label>
                 <div class="pb-2"></div>
                 <p-dropdown [options]="abonos" [(ngModel)]="estimacion.numeroAbono" optionLabel="name" 
                 optionValue="code"
-                placeholder="Selecione una opción">
+                placeholder="Selecione una opción"
+                [disabled]="liquidado">
                 <ng-template let-item pTemplate="item">
                     <div class="grid">
                         <div class="col-12" style="padding: 0px;">
@@ -76,17 +78,17 @@
             <div class="col-6">
                 <label class="required">Fecha de operación</label>
                 <div class="pb-2"></div>
-                <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"></p-calendar>
+                <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" [disabled]="liquidado"></p-calendar>
             </div>
             <div class="col-6">
                 <label class="required">Importe {{estimacion.concepto?.toLowerCase()}}</label>
                 <div class="pb-2"></div>
-                <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0"></p-inputNumber>
+                <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0" [disabled]="liquidado"></p-inputNumber>
             </div>
             <div class="col-12">
                 <label>Observaciones {{estimacion.concepto?.toLowerCase()}}</label>
                 <div class="pb-2"></div>
-                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;"></textarea>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;" [disabled]="liquidado"></textarea>
             </div>
         </div>
         <div class="pb-4"></div>
