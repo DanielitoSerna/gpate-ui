@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-contratos',
@@ -8,6 +9,8 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./contratos.component.css']
 })
 export class ContratosComponent implements OnInit {
+
+  @ViewChild('paginator', {static: false}) paginator: Paginator;
 
   visible = false;
   export = false;
@@ -70,6 +73,8 @@ export class ContratosComponent implements OnInit {
 
   filterData() {
     this.search = true;
+    this.paginator.changePage(0);
+    this.filter.page = 0;
     this.loadData();
   }
 
