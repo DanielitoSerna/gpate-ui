@@ -86,6 +86,11 @@
                 <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0" [disabled]="liquidado"></p-inputNumber>
             </div>
             <div class="col-12">
+                <label>Hipervínculo</label>
+                <div class="pb-2"></div>
+                <input type="text" pInputText [(ngModel)]="estimacion.hipervinculo" maxlength="1000">
+            </div>
+            <div class="col-12">
                 <label>Observaciones {{estimacion.concepto?.toLowerCase()}}</label>
                 <div class="pb-2"></div>
                 <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="estimacion.observaciones" maxlength="255" style="width: 100%; max-width: 100%;" [disabled]="liquidado"></textarea>

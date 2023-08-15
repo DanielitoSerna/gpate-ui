@@ -51,7 +51,7 @@
     <ng-template pTemplate="header">
         <tr>
             <th colspan="5" style="border-right: 1px solid;">INFORMACIÓN DEL CONTRATO</th>
-            <th colspan="7" style="border-right: 1px solid; background: #30261D;">INFORMACIÓN FINANCIERA</th>
+            <th colspan="7" style="border-right: 1px solid; background: #000000;">INFORMACIÓN FINANCIERA</th>
             <th colspan="13" style="background: #F59E0B;">INFORMACIÓN LEGAL</th>
         </tr>
         <tr>
@@ -155,7 +155,7 @@
             <td class="fitwidth">{{ contract.statusGeneral }}</td>
             <td style="text-align: end;">{{ contract.diasAtencion }}</td>
             <td>{{ contract.fechaVencimientoContrato | dateFormat: 'DD/MM/yyyy'}}</td>
-            <td style="text-align: end;">{{ contract.diasVencimiento }}</td>
+            <td class="fitwidth">{{ contract.diasVencimiento }}</td>
             <td>{{ contract.hipervinculo }}</td>
             <td>
                 <app-texto [text]="contract.estado" 

@@ -25,12 +25,12 @@
 
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
-    background-color: #5f5f5f;
+    background-color: #424141;
     color: white;
 }
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th :hover {
-    background-color: #5f5f5f !important;
+    background-color: #424141 !important;
     color: white;
 }
 
@@ -63,7 +63,7 @@
     height: 90vh;
     font: normal normal 600 14px/19px Open, Sans-serif;
     font-size: 14px;
-    background-color: #f7f6f5;
+    background-color: #adadad;
     overflow: auto;
 }
 

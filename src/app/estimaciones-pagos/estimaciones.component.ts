@@ -59,20 +59,31 @@ export class EstimacionesPagosComponent implements OnInit {
     if(this.contrato != null && this.contrato.folio != null && 
       this.estimacion.fechaOperacion != null && this.estimacion.importe != null &&
       this.estimacion.concepto != null && this.estimacion.numeroAbono != null) {
-        if(this.estimacion.concepto == 'ABONO') {
-          let abono = this.abonos.filter(abono => abono.code == this.estimacion.numeroAbono)[0];
-          let pendiente = abono.pendiente - this.estimacion.importe;
-          if(pendiente < 0) {
-            this.confirmAbono = true;
-          } else {
-            this.confirm = true;
-          }
-        } else {
-          this.confirm = true;
-        }
+        this.confirm = this.validateAnticipo() && this.validateAbono()
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los datos requeridos' });
       }
+  }
+
+  validateAnticipo() {
+    if(this.estimacion.concepto == 'ANTICIPO' && (!this.contrato.anticipoContratado || 
+      this.contrato.anticipoContratado < this.estimacion.importe)) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El importe del anticipo no puede ser superior al anticipo contratado' });
+        return false;
+      }
+    return true;
+  }
+
+  validateAbono() {
+    if(this.estimacion.concepto == 'ABONO') {
+      let abono = this.abonos.filter(abono => abono.code == this.estimacion.numeroAbono)[0];
+      let pendiente = abono.pendiente - this.estimacion.importe;
+      if(pendiente < 0) {
+        this.confirmAbono = true;
+        return false;
+      }
+    }
+    return true;
   }
 
   confirmSave() {

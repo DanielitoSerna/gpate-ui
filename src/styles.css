@@ -66,6 +66,7 @@ input {
     background-clip: padding-box;
     box-shadow: inset 1px 0 0 #e6e6e6;
     margin-bottom: 2px !important;
+    background-color: #f3f3f3;
   }
   
   ::-webkit-scrollbar-track:hover {
@@ -112,7 +113,7 @@ input {
 }
 
 .row-inactive {
-  background-color: #f5eae1 !important;
+  background-color: #e4eef7 !important;
   opacity: 0.7;
 }
 
@@ -129,6 +130,6 @@ input {
 .app-frorm {
   background-color: white;
   border-radius: 10px;
-  border: 1px solid #AFC4D1;
+  border: 1px solid #31271e;
   padding: 30px;
 }
