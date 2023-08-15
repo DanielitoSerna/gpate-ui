@@ -5,27 +5,27 @@
         <p-button icon="pi pi-file-export" label="Exportar" styleClass="p-button-warning" (click)="export = true"></p-button>
     </div>
     <div class="col-2">
-        <label>Proyecto</label>
+        <label class="label">Proyecto</label>
         <div class="pb-2"></div>
         <input type="text" pInputText [(ngModel)]="filter.proyecto" (keyup.enter)="filterData()">
     </div>
     <div class="col-1">
-        <label>Folio</label>
+        <label class="label">Folio</label>
         <div class="pb-2"></div>
         <input type="text" pInputText [(ngModel)]="filter.folio" (keyup.enter)="filterData()">
     </div>
     <div class="col-2">
-        <label>Especialidad</label>
+        <label class="label">Especialidad</label>
         <div class="pb-2"></div>
         <input type="text" pInputText [(ngModel)]="filter.especialidad" (keyup.enter)="filterData()">
     </div>
     <div class="col-2">
-        <label>Proveedor</label>
+        <label class="label">Proveedor</label>
         <div class="pb-2"></div>
         <input type="text" pInputText [(ngModel)]="filter.proveedor" (keyup.enter)="filterData()">
     </div>
     <div class="col-1">
-        <label>Estado</label>
+        <label class="label">Estado</label>
         <div class="pb-2"></div>
         <p-dropdown [options]="estados" [(ngModel)]="filter.estado" optionLabel="name" 
         optionValue="code"

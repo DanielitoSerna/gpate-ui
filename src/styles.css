@@ -133,3 +133,7 @@ input {
   border: 1px solid #31271e;
   padding: 30px;
 }
+
+.label {
+  color: #FEBE10;
+}
