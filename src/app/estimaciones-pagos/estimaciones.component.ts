@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from 'primeng/api';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-estimaciones-pagos',
@@ -30,7 +31,8 @@ export class EstimacionesPagosComponent implements OnInit {
 
   constructor(public service: AppService,
     private messageService: MessageService,
-    private location: Location) {
+    private location: Location,
+    private route: Router) {
   }
 
   ngOnInit(): void {
@@ -93,8 +95,8 @@ export class EstimacionesPagosComponent implements OnInit {
       this.service.finishProgress();
       this.confirm = false;
       this.confirmAbono = false;
-      window.location.reload();
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado con exitosamente' });
+      this.route.navigate(['web-contrato-estado-cuenta/' + this.contrato.id]);
     }).catch(e => {
       this.postError(e);
     });

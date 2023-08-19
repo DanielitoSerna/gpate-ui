@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contratos',
@@ -35,7 +36,8 @@ export class ContratosComponent implements OnInit {
   ]
 
   constructor(public service: AppService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private route: Router) {
     this.loadData();
   }
 
@@ -175,6 +177,10 @@ export class ContratosComponent implements OnInit {
     this.contrato.estado = estado;
     this.estado = estado;
     this.changeState = true;
+  }
+
+  roteEstadoCuenta(id: any) {
+    this.route.navigate(['web-contrato-estado-cuenta/' + id]);
   }
 
 }

@@ -15,6 +15,8 @@ import { MomentPipe } from './pipes/moment.pipe';
 import { BadgeComponent } from './badge/badge.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.component';
+import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
+import { CurrencyPipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.co
     MomentPipe,
     BadgeComponent,
     TruncatePipe,
-    EstimacionesPagosComponent
+    EstimacionesPagosComponent,
+    EstadoCuentaComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.co
     
   ],
   providers: [
-    AppService
+    AppService,
+    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })

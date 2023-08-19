@@ -25,12 +25,12 @@
 
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
-    background-color: #424141;
+    background-color: #495057;
     color: white;
 }
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th :hover {
-    background-color: #424141 !important;
+    background-color: #495057 !important;
     color: white;
 }
 

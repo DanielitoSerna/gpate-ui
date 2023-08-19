@@ -41,7 +41,11 @@ export class AppComponent implements OnInit {
           },
           {
             label: 'Estados de cuenta',
-            icon: 'pi pi-fw pi-folder'
+            icon: 'pi pi-fw pi-folder',
+            command: (event) => {
+              this.router.navigate(["/web-estado-cuenta"]);
+              this.route = 'Estado de cuenta';
+            }
           },
           {
             label: 'Gráficas',
