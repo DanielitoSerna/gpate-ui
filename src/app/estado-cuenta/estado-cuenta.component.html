@@ -116,7 +116,7 @@
             <ng-template pTemplate="body" let-abono let-i="rowIndex">
                 <tr>
                     <td>
-                        {{i + 1}}
+                        {{i < 9 ? '0' + (i+ 1) : i + 1}}
                     </td>
                     <td>
                         {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
