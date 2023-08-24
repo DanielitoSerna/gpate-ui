@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { MessageService } from 'primeng/api';
-import {CurrencyPipe, Location} from '@angular/common';
+import {CurrencyPipe} from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -17,10 +16,9 @@ export class EstadoCuentaComponent implements OnInit {
 
   abonos: [] = [];
   pagos: any[] = [];
+  valorAnticipos = 0;
 
   constructor(public service: AppService,
-    private messageService: MessageService,
-    private location: Location,
     private money: CurrencyPipe,
     private router: Router,
     private route: ActivatedRoute) {
@@ -75,6 +73,7 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   loadPagos() {
+    this.valorAnticipos = 0;
     this.pagos = [];
     let filer = {
       contrato: this.contrato.id,
@@ -86,6 +85,7 @@ export class EstadoCuentaComponent implements OnInit {
     .then((data: any) => {
       let embedded = data._embedded;
       embedded.estimacionPago.forEach((element: any) => {
+        this.valorAnticipos = this.valorAnticipos + element.importe;
         this.pagos.push(element);
       });
     });
