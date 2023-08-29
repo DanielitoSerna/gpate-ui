@@ -108,8 +108,14 @@ export class ContratosComponent implements OnInit {
     this.editar = true;
   }
 
+
   getDate(date: any) {
-    return date ? new Date(date) : date;
+    if(date != null) {
+      var parts = date.match(/(\d+)/g);
+      return new Date(parts[0], parts[1]-1, parts[2]);
+    } else {
+      return null;
+    }
   }
 
   save() {

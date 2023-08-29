@@ -22,7 +22,8 @@ export class EstimacionesPagosComponent implements OnInit {
   tipoRegistros = [
     {name: 'ANTICIPO', code: 'ANTICIPO'},
     {name: 'ESTIMACIÓN', code: 'ESTIMACIÓN'},
-    {name: 'ABONO', code: 'ABONO'},
+    {name: 'ABONO A ESTIMACIÓN', code: 'ABONO A ESTIMACIÓN'},
+    {name: 'ABONO A CONTRATO', code: 'ABONO A CONTRATO'},
     {name: 'RETENCIÓN', code: 'RETENCIÓN'} 
   ];
 
@@ -126,7 +127,7 @@ export class EstimacionesPagosComponent implements OnInit {
         concepto: this.estimacion.concepto
       }
       this.service.initProgress();
-      if(this.estimacion.concepto == 'ABONO') {
+      if(this.estimacion.concepto == 'ABONO A ESTIMACIÓN') {
         this.service.filter(filter, 'estimacionPago/search/getNumeroAbonoByContrato?').then(data => {
           this.service.finishProgress();
           let datos = data._embedded;

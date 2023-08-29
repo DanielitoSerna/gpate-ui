@@ -14,7 +14,7 @@ export class EstadoCuentaComponent implements OnInit {
   contracts:[] = [];
   contrato: any = {};
 
-  abonos: [] = [];
+  abonos: any[] = [];
   pagos: any[] = [];
   valorAnticipos = 0;
 
@@ -60,6 +60,7 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   loadEstimaciones() {
+    this.abonos = [];
     let filer = {
       contrato: this.contrato.id,
       concepto: "ESTIMACIÓN",
@@ -68,7 +69,10 @@ export class EstadoCuentaComponent implements OnInit {
     }
     this.service.filter(filer, "estimacionPago?").then((data: any) => {
       let embedded = data._embedded;
-      this.abonos = embedded.estimacionPago;
+      embedded.estimacionPago.forEach((element: any) => {
+        if(element.concepto == 'ESTIMACIÓN')
+        this.abonos.push(element);
+      });
     });
   }
 
@@ -91,7 +95,16 @@ export class EstadoCuentaComponent implements OnInit {
     });
 
 
-    filer.concepto = 'ABONO'
+    filer.concepto = 'ABONO A ESTIMACIÓN'
+    this.service.filter(filer, "estimacionPago?")
+    .then((data: any) => {
+      let embedded = data._embedded;
+      embedded.estimacionPago.forEach((element: any) => {
+        this.pagos.push(element);
+      });
+    });
+
+    filer.concepto = 'ABONO A CONTRATO'
     this.service.filter(filer, "estimacionPago?")
     .then((data: any) => {
       let embedded = data._embedded;
