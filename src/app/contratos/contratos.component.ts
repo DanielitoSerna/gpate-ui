@@ -175,7 +175,7 @@ export class ContratosComponent implements OnInit {
   postError(error: any) {
     this.service.finishProgress();
     console.error(error);
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el contrato' });
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el contrato, verifique que el Número de contrato y/o folio no se encuentre registrado' });
   }
 
   changeStatus(contrato: any, estado = 'Inactivo') {
