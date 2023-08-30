@@ -80,10 +80,15 @@
                 <div class="pb-2"></div>
                 <p-calendar [(ngModel)]="estimacion.fechaOperacion" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true" [disabled]="liquidado"></p-calendar>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <label class="required">Importe {{estimacion.concepto?.toLowerCase()}}</label>
                 <div class="pb-2"></div>
                 <p-inputNumber [(ngModel)]="estimacion.importe" inputId="currency-us" mode="currency" currency="USD" locale="en-US" [required]="true" [min]="0" [disabled]="liquidado"></p-inputNumber>
+            </div>
+            <div class="col-2" *ngIf="estimacion.importeAbono">
+                <label>Abonado</label>
+                <div class="pb-2"></div>
+                <span>{{estimacion.importeAbono | currency}}</span>
             </div>
             <div class="col-12">
                 <label>Hipervínculo</label>

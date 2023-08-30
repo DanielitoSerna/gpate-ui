@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from 'primeng/api';
 import {Location} from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-estimaciones-pagos',
@@ -33,11 +33,18 @@ export class EstimacionesPagosComponent implements OnInit {
   constructor(public service: AppService,
     private messageService: MessageService,
     private location: Location,
-    private route: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.service.finishProgress();
+    if(this.router.url.includes('web-estimacion-pago')) {
+      const estimacionId = this.route.snapshot.params['id'];
+      if(estimacionId) {
+        this.getEstimacion(estimacionId);
+      }
+    }
   }
 
 
@@ -62,10 +69,20 @@ export class EstimacionesPagosComponent implements OnInit {
     if(this.contrato != null && this.contrato.folio != null && 
       this.estimacion.fechaOperacion != null && this.estimacion.importe != null &&
       this.estimacion.concepto != null && this.estimacion.numeroAbono != null) {
-        this.confirm = this.validateAnticipo() && this.validateAbono()
+        this.confirm = this.validateAnticipo() && this.validateAbono() && this.validateEstimacion();
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los datos requeridos' });
       }
+  }
+
+  validateEstimacion() {
+    if(this.estimacion.concepto == 'ESTIMACIÓN' && this.estimacion.importeAbono 
+        && this.estimacion.importe < this.estimacion.importeAbono) {
+      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado' });
+      return false;
+    }
+    return true;
   }
 
   validateAnticipo() {
@@ -97,7 +114,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.confirm = false;
       this.confirmAbono = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado con exitosamente' });
-      this.route.navigate(['web-contrato-estado-cuenta/' + this.contrato.id]);
+      this.router.navigate(['web-contrato-estado-cuenta/' + this.contrato.id]);
     }).catch(e => {
       this.postError(e);
     });
@@ -166,5 +183,22 @@ export class EstimacionesPagosComponent implements OnInit {
         });
       }
     }
+  }
+
+  getEstimacion(id: number) {
+    this.service.get('estimacionPago/' + id).then(data => {
+      this.estimacion = data;
+      this.estimacion.fechaOperacion = this.service.getDate(this.estimacion.fechaOperacion);
+      this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
+      this.loadContract(this.estimacion.contrato);
+    });
+  }
+
+  loadContract(id: any) {
+    this.service.initProgress();
+    this.service.get('contratos/' + id).then(data => {
+      this.contrato = data;
+      this.service.finishProgress();
+    });
   }
 }

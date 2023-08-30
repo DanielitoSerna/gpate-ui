@@ -98,24 +98,14 @@ export class ContratosComponent implements OnInit {
 
   edit(contrato: any) {
     this.contrato = {...contrato};
-    this.contrato.fechaFirmadoCliente = this.getDate(this.contrato.fechaFirmadoCliente);
-    this.contrato.fechaVencimientoContrato = this.getDate(this.contrato.fechaVencimientoContrato);
-    this.contrato.fechaFallo = this.getDate(this.contrato.fechaFallo);
-    this.contrato.fechaSolicitudContrato = this.getDate(this.contrato.fechaSolicitudContrato);
-    this.contrato.fechaProgramadaEntrega = this.getDate(this.contrato.fechaProgramadaEntrega);
-    this.contrato.fechaJuridico = this.getDate(this.contrato.fechaJuridico);
+    this.contrato.fechaFirmadoCliente = this.service.getDate(this.contrato.fechaFirmadoCliente);
+    this.contrato.fechaVencimientoContrato = this.service.getDate(this.contrato.fechaVencimientoContrato);
+    this.contrato.fechaFallo = this.service.getDate(this.contrato.fechaFallo);
+    this.contrato.fechaSolicitudContrato = this.service.getDate(this.contrato.fechaSolicitudContrato);
+    this.contrato.fechaProgramadaEntrega = this.service.getDate(this.contrato.fechaProgramadaEntrega);
+    this.contrato.fechaJuridico = this.service.getDate(this.contrato.fechaJuridico);
     this.visible = true;
     this.editar = true;
-  }
-
-
-  getDate(date: any) {
-    if(date != null) {
-      var parts = date.match(/(\d+)/g);
-      return new Date(parts[0], parts[1]-1, parts[2]);
-    } else {
-      return null;
-    }
   }
 
   save() {

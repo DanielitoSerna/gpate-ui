@@ -137,4 +137,8 @@ export class EstadoCuentaComponent implements OnInit {
       window.open(this.service.configUrl + 'api/pdf/estadoCuenta?idContrato=' + this.contrato.id);
     }
   }
+
+  edit(id: number) {
+    this.router.navigate(['web-estimacion-pago/' + id]);
+  }
 }

@@ -19,6 +19,10 @@ const routes: Routes = [
       component: EstimacionesPagosComponent
     },
     {
+      path: "web-estimacion-pago/:id",
+      component: EstimacionesPagosComponent
+    },
+    {
       path: "web-estado-cuenta",
       component: EstadoCuentaComponent
     },

@@ -36,4 +36,13 @@ export class AppService {
     post(object: any, url: string): Promise<any> {
         return this.http.post(this.configUrl + url, object).toPromise();
     }
+
+    getDate(date: any) {
+        if(date != null) {
+          var parts = date.match(/(\d+)/g);
+          return new Date(parts[0], parts[1]-1, parts[2]);
+        } else {
+          return null;
+        }
+    }
 }

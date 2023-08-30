@@ -57,9 +57,10 @@
             styleClass="p-datatable-sm p-datatable-gridlines">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="5" style="border-right: 1px solid; text-align: center;">ESTIMACIONES</th>
+                    <th colspan="6" style="border-right: 1px solid; text-align: center;">ESTIMACIONES</th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th>No.</th>
                     <th>Fecha</th>
                     <th>Importe</th>
@@ -69,6 +70,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-abono>
                 <tr>
+                    <td>
+                        <p-button icon="pi pi-pencil" 
+                            styleClass="p-button-rounded p-button-secondary p-button-text" 
+                            pTooltip="Editar"
+                            (click)="edit(abono.id)"></p-button>
+                    </td>
                     <td>
                         {{abono.numeroAbono}}
                     </td>
@@ -103,9 +110,10 @@
             styleClass="p-datatable-sm p-datatable-gridlines">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="5" style="border-right: 1px solid; text-align: center;">PAGOS</th>
+                    <th colspan="6" style="border-right: 1px solid; text-align: center;">PAGOS</th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th>No.</th>
                     <th>Fecha</th>
                     <th>Importe</th>
@@ -115,6 +123,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-abono let-i="rowIndex">
                 <tr>
+                    <td>
+                        <p-button icon="pi pi-pencil" 
+                            styleClass="p-button-rounded p-button-secondary p-button-text" 
+                            pTooltip="Editar"
+                            (click)="edit(abono.id)"></p-button>
+                    </td>
                     <td>
                         {{i < 9 ? '0' + (i+ 1) : i + 1}}
                     </td>
