@@ -21,29 +21,31 @@
                 </p-autoComplete>
             </div>
             <div class="col-12" *ngIf="contrato.folio">
-                <div class="col-12">
-                    <label>Proyecto: </label>
-                    <span class="pr-2"></span>
-                    <span class="app-description">{{contrato.proyecto}}</span>
-                </div>
-                <div class="col-12">
-                    <label>Especialidad: </label>
-                    <span class="pr-2"></span>
-                    <span class="app-description">{{contrato.especialidad}}</span>
-                </div>
-                <div class="col-12">
-                    <label>Proveedor: </label>
-                    <span class="pr-2"></span>
-                    <span class="app-description">{{contrato.proveedor}}</span>
-                </div>
-                <div class="col-12">
-                    <label>Monto contratado: </label>
-                    <span class="pr-2"></span>
-                    <span class="app-description">{{contrato.importeContratado | currency}}</span>
-                </div>
-                <div class="col-12 app-filter" *ngIf="liquidado">
-                    <span class="pi pi-info-circle"></span>
-                    El contrato se encuentra liquidado, no se pueden realizar acciones
+                <div class="grid">
+                    <div class="col-6">
+                        <label>Proyecto: </label>
+                        <span class="pr-2"></span>
+                        <span class="app-description">{{contrato.proyecto}}</span>
+                    </div>
+                    <div class="col-6">
+                        <label>Especialidad: </label>
+                        <span class="pr-2"></span>
+                        <span class="app-description">{{contrato.especialidad}}</span>
+                    </div>
+                    <div class="col-6">
+                        <label>Proveedor: </label>
+                        <span class="pr-2"></span>
+                        <span class="app-description">{{contrato.proveedor}}</span>
+                    </div>
+                    <div class="col-6">
+                        <label>Monto contratado: </label>
+                        <span class="pr-2"></span>
+                        <span class="app-description">{{contrato.importeContratado | currency}}</span>
+                    </div>
+                    <div class="col-12 app-filter" *ngIf="liquidado">
+                        <span class="pi pi-info-circle"></span>
+                        El contrato se encuentra liquidado, no se pueden realizar acciones
+                    </div>
                 </div>
             </div>
             <div class="col-6">
