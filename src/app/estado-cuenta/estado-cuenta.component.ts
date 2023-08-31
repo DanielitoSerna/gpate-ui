@@ -25,6 +25,7 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.setItem('ROUTE', 'Estado de cuenta');
     if(this.router.url.includes('web-contrato-estado-cuenta')) {
       const contractId = this.route.snapshot.params['id'];
       if(contractId) {
@@ -81,7 +82,7 @@ export class EstadoCuentaComponent implements OnInit {
     this.pagos = [];
     let filer = {
       contrato: this.contrato.id,
-      concepto: 'ANTICIPO',
+      concepto: 'ABONO A ANTICIPO',
       size: 200,
       sort: 'id'
     }

@@ -18,9 +18,10 @@ export class EstimacionesPagosComponent implements OnInit {
   confirm = false;
   confirmAbono = false;
   liquidado = false;
+  valorAnterior = 0;
 
   tipoRegistros = [
-    {name: 'ANTICIPO', code: 'ANTICIPO'},
+    {name: 'ABONO A ANTICIPO', code: 'ABONO A ANTICIPO'},
     {name: 'ESTIMACIÓN', code: 'ESTIMACIÓN'},
     {name: 'ABONO A ESTIMACIÓN', code: 'ABONO A ESTIMACIÓN'},
     {name: 'ABONO A CONTRATO', code: 'ABONO A CONTRATO'},
@@ -38,6 +39,7 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.setItem('ROUTE', 'Estimaciones y pagos');
     this.service.finishProgress();
     if(this.router.url.includes('web-estimacion-pago')) {
       const estimacionId = this.route.snapshot.params['id'];
@@ -76,17 +78,25 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   validateEstimacion() {
-    if(this.estimacion.concepto == 'ESTIMACIÓN' && this.estimacion.importeAbono 
+    if(this.estimacion.concepto == 'ESTIMACIÓN') {
+      let importeTotal = this.contrato.estimacionesProgramadas - this.valorAnterior;
+      importeTotal = importeTotal + this.estimacion.importe;
+      if(this.estimacion.importeAbono 
         && this.estimacion.importe < this.estimacion.importeAbono) {
       
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado' });
-      return false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado' });
+        return false;
+      } else if(importeTotal >  this.contrato.importeContratado) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor de la estimación supera el monto contratado' });
+        return false;
+      }
     }
+
     return true;
   }
 
   validateAnticipo() {
-    if(this.estimacion.concepto == 'ANTICIPO' && (!this.contrato.anticipoContratado || 
+    if(this.estimacion.concepto == 'ABONO A ANTICIPO' && (!this.contrato.anticipoContratado || 
       this.contrato.anticipoContratado < this.estimacion.importe)) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El importe del anticipo no puede ser superior al anticipo contratado' });
         return false;
@@ -95,7 +105,7 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   validateAbono() {
-    if(this.estimacion.concepto == 'ABONO') {
+    if(this.estimacion.concepto == 'ABONO A ESTIMACIÓN') {
       let abono = this.abonos.filter(abono => abono.code == this.estimacion.numeroAbono)[0];
       let pendiente = abono.pendiente - this.estimacion.importe;
       if(pendiente < 0) {
@@ -191,6 +201,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.estimacion.fechaOperacion = this.service.getDate(this.estimacion.fechaOperacion);
       this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
       this.loadContract(this.estimacion.contrato);
+      this.valorAnterior = this.estimacion.importeAbono;
     });
   }
 

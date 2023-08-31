@@ -4,7 +4,7 @@
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
         <p-button (click)="menu.toggle($event)" icon="pi pi-bars" label="Menú" styleClass="p-button-warning"></p-button>
         <label class="app-titulo">
-            {{route}}
+            {{getRoute()}}
         </label>
         
     </div>

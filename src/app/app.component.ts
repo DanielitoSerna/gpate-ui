@@ -11,11 +11,9 @@ import { AppService } from './app.service';
 export class AppComponent implements OnInit {
   title = 'gpate-ui';
   items: MenuItem[] | undefined = [];
-  route = '';
 
   constructor(public router: Router,
     public service: AppService) {
-      this.getRouteByUrl();
   }
 
   ngOnInit(): void {
@@ -28,7 +26,6 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-file-edit',
             command: (event) => {
               this.router.navigate(["/web-contratos"]);
-              this.route = 'Contratos';
             }
           },
           {
@@ -36,7 +33,6 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-money-bill',
             command: (event) => {
               this.router.navigate(["/web-estimaciones-pagos"]);
-              this.route = 'Estimaciones y pagos';
             }
           },
           {
@@ -44,7 +40,6 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-folder',
             command: (event) => {
               this.router.navigate(["/web-estado-cuenta"]);
-              this.route = 'Estado de cuenta';
             }
           },
           {
@@ -93,12 +88,7 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  getRouteByUrl() {
-    let url:any = this.router.url;
-    if(url == '/web-contratos') {
-      this.route = 'Contratos';
-    } else if(url == '/web-estimaciones-pagos') {
-      this.route = 'Estimaciones y pagos';
-    }
+  getRoute() {
+    return localStorage.getItem('ROUTE');
   }
 }

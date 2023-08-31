@@ -42,7 +42,7 @@ export class ContratosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    localStorage.setItem('ROUTE', 'Contratos');
   }
 
   sort(event: any) {

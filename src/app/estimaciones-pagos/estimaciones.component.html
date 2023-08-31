@@ -44,7 +44,10 @@
                     </div>
                     <div class="col-12 app-filter" *ngIf="liquidado">
                         <span class="pi pi-info-circle"></span>
-                        El contrato se encuentra liquidado, no se pueden realizar acciones
+                        El contrato se encuentra liquidado, no se pueden realizar acciones;
+                        <a routerLink="{{ '/web-contrato-estado-cuenta/' + contrato.id}}">
+                            Ver estado de cuenta
+                        </a>
                     </div>
                 </div>
             </div>
