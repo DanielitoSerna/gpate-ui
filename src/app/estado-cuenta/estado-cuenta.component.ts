@@ -17,6 +17,7 @@ export class EstadoCuentaComponent implements OnInit {
   abonos: any[] = [];
   pagos: any[] = [];
   valorAnticipos = 0;
+  valorPendAnticipo = 0;
 
   constructor(public service: AppService,
     private money: CurrencyPipe,
@@ -91,10 +92,13 @@ export class EstadoCuentaComponent implements OnInit {
       let embedded = data._embedded;
       embedded.estimacionPago.forEach((element: any) => {
         this.valorAnticipos = this.valorAnticipos + element.importe;
+        this.valorPendAnticipo = this.contrato.anticipoContratado - this.valorAnticipos;
         this.pagos.push(element);
       });
     });
 
+    
+    console.log(this.valorPendAnticipo);
 
     filer.concepto = 'ABONO A ESTIMACIÓN'
     this.service.filter(filer, "estimacionPago?")

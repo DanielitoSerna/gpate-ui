@@ -186,10 +186,10 @@
                     <span class="value">{{valorAnticipos | currency}}</span>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pagos realizados: </label>                    
+                    <label class="app-label">Pendiente: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.pagosAplicados | currency}}</span>
+                    <span class="value">{{valorPendAnticipo | currency}}</span>
                 </div>
                 <div class="col-12">
                     <p-divider></p-divider>
@@ -213,6 +213,12 @@
                 </div>               
                 <div class="col-12">
                     <p-divider></p-divider>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Pagos realizados: </label>                    
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.pagosAplicados | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Pendiente por liquidar: </label>
