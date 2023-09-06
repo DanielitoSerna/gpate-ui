@@ -82,6 +82,7 @@ export class EstadoCuentaComponent implements OnInit {
     this.valorAnticipos = 0;
     this.valorPendAnticipo = 0;
     this.pagos = [];
+    this.abonos = [];
     let filer = {
       contrato: this.contrato.id,
       size: 200,
