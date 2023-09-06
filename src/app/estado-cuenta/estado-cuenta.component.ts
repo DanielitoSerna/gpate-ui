@@ -17,6 +17,7 @@ export class EstadoCuentaComponent implements OnInit {
   abonos: any[] = [];
   pagos: any[] = [];
   valorAnticipos = 0;
+  valorPendAnticipo = 0;
 
   constructor(public service: AppService,
     private money: CurrencyPipe,
@@ -79,6 +80,7 @@ export class EstadoCuentaComponent implements OnInit {
 
   loadPagos() {
     this.valorAnticipos = 0;
+    this.valorPendAnticipo = 0;
     this.pagos = [];
     let filer = {
       contrato: this.contrato.id,
@@ -94,7 +96,10 @@ export class EstadoCuentaComponent implements OnInit {
         if(element.concepto == 'ESTIMACIÓN') {
           this.abonos.push(element);
         } else {
-          if(element.concepto == 'ANTICIPO') 
+          if(element.concepto == 'ANTICIPO') {
+            this.valorAnticipos = this.valorAnticipos + element.importe;
+            this.valorPendAnticipo = this.contrato.anticipoContratado - this.valorAnticipos;
+          }
           this.valorAnticipos = this.valorAnticipos + element.importe;
           this.pagos.push(element);
         }
