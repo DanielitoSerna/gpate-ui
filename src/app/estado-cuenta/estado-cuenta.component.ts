@@ -57,25 +57,7 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   getContractData() {
-    this.loadEstimaciones();
     this.loadPagos();
-  }
-
-  loadEstimaciones() {
-    this.abonos = [];
-    let filer = {
-      contrato: this.contrato.id,
-      concepto: "ESTIMACIÓN",
-      size: 200,
-      sort: 'id'
-    }
-    this.service.filter(filer, "estimacionPago?").then((data: any) => {
-      let embedded = data._embedded;
-      embedded.estimacionPago.forEach((element: any) => {
-        if(element.concepto == 'ESTIMACIÓN')
-        this.abonos.push(element);
-      });
-    });
   }
 
   loadPagos() {
@@ -100,12 +82,10 @@ export class EstadoCuentaComponent implements OnInit {
             this.valorAnticipos = this.valorAnticipos + element.importe;
             this.valorPendAnticipo = this.contrato.anticipoContratado - this.valorAnticipos;
           }
-          this.valorAnticipos = this.valorAnticipos + element.importe;
           this.pagos.push(element);
         }
       });
     });
-   
   }
 
   getLabelAbono(importe: number, importePagado: number) {
