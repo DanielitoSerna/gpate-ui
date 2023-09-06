@@ -84,7 +84,6 @@ export class EstadoCuentaComponent implements OnInit {
     this.pagos = [];
     let filer = {
       contrato: this.contrato.id,
-      concepto: 'ABONO A ANTICIPO',
       size: 200,
       sort: 'fechaOperacion'
     }
