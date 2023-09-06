@@ -78,7 +78,7 @@ export class EstadoCuentaComponent implements OnInit {
         if(element.concepto == 'ESTIMACIÓN') {
           this.abonos.push(element);
         } else {
-          if(element.concepto == 'ANTICIPO') {
+          if(element.concepto == 'ABONO A ANTICIPO') {
             this.valorAnticipos = this.valorAnticipos + element.importe;
             this.valorPendAnticipo = this.contrato.anticipoContratado - this.valorAnticipos;
           }
