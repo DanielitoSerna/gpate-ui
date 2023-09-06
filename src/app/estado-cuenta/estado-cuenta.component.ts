@@ -47,7 +47,7 @@ export class EstadoCuentaComponent implements OnInit {
     let query = event.query;
     if(query != null && query.length >= 3) {
       this.service.initProgress();
-      this.service.filter({folio: query}, "contratos?").then((data: any) => {
+      this.service.filter({folio: query, sort: 'folio'}, "contratos?").then((data: any) => {
         this.service.finishProgress();
         let embedded = data._embedded;
         this.contracts = embedded.contratos;
@@ -84,46 +84,23 @@ export class EstadoCuentaComponent implements OnInit {
       contrato: this.contrato.id,
       concepto: 'ABONO A ANTICIPO',
       size: 200,
-      sort: 'id'
+      sort: 'fechaOperacion'
     }
     this.service.filter(filer, "estimacionPago?")
     .then((data: any) => {
       let embedded = data._embedded;
+      this.service.finishProgress();
       embedded.estimacionPago.forEach((element: any) => {
-        this.valorAnticipos = this.valorAnticipos + element.importe;
-        this.pagos.push(element);
+        if(element.concepto == 'ESTIMACIÓN') {
+          this.abonos.push(element);
+        } else {
+          if(element.concepto == 'ANTICIPO') 
+          this.valorAnticipos = this.valorAnticipos + element.importe;
+          this.pagos.push(element);
+        }
       });
     });
-
-
-    filer.concepto = 'ABONO A ESTIMACIÓN'
-    this.service.filter(filer, "estimacionPago?")
-    .then((data: any) => {
-      let embedded = data._embedded;
-      embedded.estimacionPago.forEach((element: any) => {
-        this.pagos.push(element);
-      });
-    });
-
-    filer.concepto = 'ABONO A CONTRATO'
-    this.service.filter(filer, "estimacionPago?")
-    .then((data: any) => {
-      let embedded = data._embedded;
-      embedded.estimacionPago.forEach((element: any) => {
-        this.pagos.push(element);
-      });
-    });
-
-    filer.concepto = 'RETENCIÓN'
-    this.service.filter(filer, "estimacionPago?")
-    .then((data: any) => {
-      let embedded = data._embedded;
-      embedded.estimacionPago.forEach((element: any) => {
-        this.pagos.push(element);
-      });
-    });
-
-    this.service.finishProgress();
+   
   }
 
   getLabelAbono(importe: number, importePagado: number) {

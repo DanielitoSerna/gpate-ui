@@ -54,7 +54,7 @@ export class EstimacionesPagosComponent implements OnInit {
     let query = event.query;
     if(query != null && query.length >= 3) {
       this.service.initProgress();
-      this.service.filter({folio: query}, "contratos?").then((data: any) => {
+      this.service.filter({folio: query, sort: 'folio'}, "contratos?").then((data: any) => {
         this.service.finishProgress();
         let embedded = data._embedded;
         this.contracts = embedded.contratos;
