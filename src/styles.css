@@ -124,7 +124,7 @@ input {
 
 .app-filter {
   font-style: italic;
-  color: #5f4e3c;
+  color: #616161;
 }
 
 .app-frorm {
@@ -136,26 +136,41 @@ input {
 
 .label {
   color: #FEBE10;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .value {
   color: #FEBE10;
+  font-size: 15px;
 }
 
 .app-label {
   color: white;
+  font-weight: 500;
 }
 
 .app-info {
   background-color: #495057;
   border-radius: 10px;
   border: 1px solid #31271e;
-  padding: 30px;
+  padding: 20px;
+  font-weight: 500;
 }
 
 .app-link {
   color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));
   text-decoration: underline;
   cursor: pointer;
+}
+
+.app-contract-info {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.app-label-status {
+  font-style: italic;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
 }

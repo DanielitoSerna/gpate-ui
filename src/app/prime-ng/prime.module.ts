@@ -18,6 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         DialogModule,
         RadioButtonModule,
         DropdownModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        AvatarModule
     ],
     exports: [
         TableModule,
@@ -56,7 +58,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         DialogModule,
         RadioButtonModule,
         DropdownModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        AvatarModule
     ],
     providers: [
         MessageService

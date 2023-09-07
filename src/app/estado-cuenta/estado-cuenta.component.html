@@ -1,10 +1,10 @@
 <div class="grid">
-    <div class="col-3">
+    <div class="col-2">
         <label class="label">Número de contrato</label>
         <div class="pb-2"></div>
         <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" 
             (completeMethod)="loadData($event)" field="folio"
-            placeholder="Digite el folio o número de contraro"
+            placeholder="Digite el folio o contrato"
             (onSelect)="getContractData()">
             <ng-template let-contrat pTemplate="item">
                 <div class="grid">
@@ -19,31 +19,46 @@
         </p-autoComplete>
     </div>
     <div class="col-1 pt-5">
-        <p-button label="Descargar" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"></p-button>
+        <p-button label="Descargar" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
+                    icon="pi pi-download"></p-button>
     </div>
     <div class="col-6" *ngIf="contrato.id">
-        <div class="grid">
-            <div class="col-6">
+        <div class="grid app-contract-info">
+            <div class="col-12">
                 <label class="app-label">Folio: </label>
                 <span class="pr-2"></span>
                 <span class="label">{{contrato.folio}}</span>
-            </div>
-            <div class="col-6">
+
+                <span class="pr-4"></span>
+
                 <label class="app-label">Proyecto: </label>
                 <span class="pr-2"></span>
                 <span class="label">{{contrato.proyecto}}</span>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <label class="app-label">Especialidad: </label>
                 <span class="pr-2"></span>
                 <span class="label">{{contrato.especialidad}}</span>
-            </div>
-            <div class="col-6">
+
+                <span class="pr-4"></span>
+
                 <label class="app-label">Proveedor: </label>
                 <span class="pr-2"></span>
                 <span class="label">{{contrato.proveedor}}</span>
             </div>
         </div>
+    </div>
+    <div class="col-3" *ngIf="contrato.id">
+        <p-avatar *ngIf="status == 'ERROR'" label="Error" 
+                  styleClass="mr-2" size="large" shape="circle"
+                  [style]="{ 'background-color': 'rgb(248 4 27)', color: '#ffffff' }"></p-avatar>
+        <p-avatar *ngIf="status == 'WARNING'" 
+                    label="Pendt" styleClass="mr-2" size="large" shape="circle"
+                    [style]="{ 'background-color': 'rgb(255 233 5)', color: 'rgb(27 26 26)' }"></p-avatar>
+        <p-avatar *ngIf="status == 'SUCCESS'" 
+                label="OK" styleClass="mr-2" size="large" shape="circle"
+                [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
+        <label class="app-label-status">{{messageStatus}}</label>
     </div>
 </div>
 <div class="pb-2"></div>
@@ -150,7 +165,6 @@
                     </td>
                     <td class="fitwidth">
                         <span *ngIf="abono.observaciones" pTooltip="{{abono.observaciones}}" tooltipPosition="left">{{abono.observaciones | truncate:20}}</span>
-
                     </td>
                 </tr>
             </ng-template>  

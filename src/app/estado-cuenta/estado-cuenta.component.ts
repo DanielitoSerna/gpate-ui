@@ -19,6 +19,9 @@ export class EstadoCuentaComponent implements OnInit {
   valorAnticipos = 0;
   valorPendAnticipo = 0;
 
+  status = 'WARNING';
+  messageStatus = '';
+
   constructor(public service: AppService,
     private money: CurrencyPipe,
     private router: Router,
@@ -61,6 +64,7 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   loadPagos() {
+    this.getStatusContract();
     this.valorAnticipos = 0;
     this.valorPendAnticipo = 0;
     this.pagos = [];
@@ -103,5 +107,18 @@ export class EstadoCuentaComponent implements OnInit {
 
   edit(id: number) {
     this.router.navigate(['web-estimacion-pago/' + id]);
+  }
+
+  getStatusContract() {
+    if(this.contrato.estimacionesProgramadas > this.contrato.importeContratado) {
+      this.status = 'ERROR';
+      this.messageStatus = 'El valor de las estimaciones supera el valor contratado';
+    } else if (this.contrato.saldoPendienteContrato > 0) {
+      this.status = 'WARNING';
+      this.messageStatus = 'Contrato pendinte por liquidar';
+    } else if (this.contrato.saldoPendienteContrato == 0) {
+      this.status = 'SUCCESS';
+      this.messageStatus = 'Contrato liquidado';
+    }
   }
 }

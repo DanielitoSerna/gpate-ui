@@ -20,16 +20,8 @@ export class EstimacionesPagosComponent implements OnInit {
   liquidado = false;
   valorAnterior = 0;
 
-  tipoRegistros = [
-    {name: 'ABONO A ANTICIPO', code: 'ABONO A ANTICIPO'},
-    {name: 'ESTIMACIÓN', code: 'ESTIMACIÓN'},
-    {name: 'ABONO A ESTIMACIÓN', code: 'ABONO A ESTIMACIÓN'},
-    {name: 'ABONO A CONTRATO', code: 'ABONO A CONTRATO'},
-    {name: 'RETENCIÓN', code: 'RETENCIÓN'} 
-  ];
-
   abonos: any[] = [];
-
+  tipoRegistros: any[]= [];
 
   constructor(public service: AppService,
     private messageService: MessageService,
@@ -141,6 +133,7 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   getConsecutive() {
+    this.getOpciones();
     if(this.contrato.saldoPendienteContrato == 0) {
       this.liquidado = true
     } else {
@@ -201,7 +194,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.estimacion.fechaOperacion = this.service.getDate(this.estimacion.fechaOperacion);
       this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
       this.loadContract(this.estimacion.contrato);
-      this.valorAnterior = this.estimacion.importeAbono;
+      this.valorAnterior = this.estimacion.importe;
     });
   }
 
@@ -211,5 +204,25 @@ export class EstimacionesPagosComponent implements OnInit {
       this.contrato = data;
       this.service.finishProgress();
     });
+  }
+
+  getOpciones() {
+    if(this.contrato.anticipoContratado > 0) {
+      this.tipoRegistros = [
+        {name: 'ABONO A ANTICIPO', code: 'ABONO A ANTICIPO'},
+        {name: 'ESTIMACIÓN', code: 'ESTIMACIÓN'},
+        {name: 'ABONO A ESTIMACIÓN', code: 'ABONO A ESTIMACIÓN'},
+        {name: 'ABONO A CONTRATO', code: 'ABONO A CONTRATO'},
+        {name: 'RETENCIÓN', code: 'RETENCIÓN'} 
+      ];
+    } else {
+      this.tipoRegistros = [
+        {name: 'ESTIMACIÓN', code: 'ESTIMACIÓN'},
+        {name: 'ABONO A ESTIMACIÓN', code: 'ABONO A ESTIMACIÓN'},
+        {name: 'ABONO A CONTRATO', code: 'ABONO A CONTRATO'},
+        {name: 'RETENCIÓN', code: 'RETENCIÓN'} 
+      ];
+    }
+
   }
 }
