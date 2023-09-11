@@ -11,6 +11,8 @@ import { AppService } from './app.service';
 export class AppComponent implements OnInit {
   title = 'gpate-ui';
   items: MenuItem[] | undefined = [];
+  routeName: any = '';
+  public isCollapsed = true;
 
   constructor(public router: Router,
     public service: AppService) {
@@ -24,23 +26,17 @@ export class AppComponent implements OnInit {
           {
             label: 'Contratos',
             icon: 'pi pi-fw pi-file-edit',
-            command: (event) => {
-              this.router.navigate(["/web-contratos"]);
-            }
+            routerLink: '/web-contratos'
           },
           {
             label: 'Estimaciones y pagos',
             icon: 'pi pi-fw pi-money-bill',
-            command: (event) => {
-              this.router.navigate(["/web-estimaciones-pagos"]);
-            }
+            routerLink: '/web-estimaciones-pagos'
           },
           {
-            label: 'Estados de cuenta',
+            label: 'Estado de cuenta',
             icon: 'pi pi-fw pi-folder',
-            command: (event) => {
-              this.router.navigate(["/web-estado-cuenta"]);
-            }
+            routerLink: '/web-estado-cuenta'
           },
           {
             label: 'Gráficas',
@@ -81,14 +77,20 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-users'
           }
         ]
-      },
-      {
-        label: 'Salir',
       }
     ];
   }
 
   getRoute() {
-    return localStorage.getItem('ROUTE');
+    this.routeName = localStorage.getItem('ROUTE')
+    return this.routeName;
+  }
+
+  goToMenu(): void {
+    this.isCollapsed = true;
+  }
+
+  toggleMenu(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

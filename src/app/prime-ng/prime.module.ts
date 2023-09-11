@@ -19,6 +19,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
     imports: [
@@ -39,7 +41,9 @@ import { AvatarModule } from 'primeng/avatar';
         RadioButtonModule,
         DropdownModule,
         AutoCompleteModule,
-        AvatarModule
+        AvatarModule,
+        CheckboxModule,
+        FileUploadModule
     ],
     exports: [
         TableModule,
@@ -59,7 +63,9 @@ import { AvatarModule } from 'primeng/avatar';
         RadioButtonModule,
         DropdownModule,
         AutoCompleteModule,
-        AvatarModule
+        AvatarModule,
+        CheckboxModule,
+        FileUploadModule
     ],
     providers: [
         MessageService

@@ -1,174 +1,176 @@
-<div class="grid">
-    <div class="col-2">
-        <label class="label">Número de contrato</label>
-        <div class="pb-2"></div>
-        <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'100%'}" [suggestions]="contracts" 
-            (completeMethod)="loadData($event)" field="folio"
-            placeholder="Digite el folio o contrato"
-            (onSelect)="getContractData()">
-            <ng-template let-contrat pTemplate="item">
-                <div class="grid">
-                    <div class="col-12" style="padding: 0px;">
-                        <strong>{{contrat.folio}}</strong>
-                    </div>
-                    <div class="col-12 app-filter" style="padding: 0px;">
-                        {{contrat.proyecto}} - {{contrat.especialidad}} - {{contrat.proveedor}}
-                    </div>
+<div style="position: absolute; top: 7px; right: 20px;" class="flex">
+    <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'450px'}" [suggestions]="contracts" 
+        (completeMethod)="loadData($event)" field="folio"
+        placeholder="Digite el folio o contrato"
+        (onSelect)="getContractData()">
+        <ng-template let-contrat pTemplate="item">
+            <div class="grid">
+                <div class="col-12" style="padding: 0px;">
+                    <strong>{{contrat.folio}}</strong>
                 </div>
-            </ng-template>
-        </p-autoComplete>
-    </div>
-    <div class="col-1 pt-5">
-        <p-button label="Descargar" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
-                    icon="pi pi-download"></p-button>
-    </div>
-    <div class="col-6" *ngIf="contrato.id">
-        <div class="grid app-contract-info">
-            <div class="col-12">
-                <label class="app-label">Folio: </label>
-                <span class="pr-2"></span>
-                <span class="label">{{contrato.folio}}</span>
-
-                <span class="pr-4"></span>
-
-                <label class="app-label">Proyecto: </label>
-                <span class="pr-2"></span>
-                <span class="label">{{contrato.proyecto}}</span>
+                <div class="col-12 app-filter" style="padding: 0px;">
+                    {{contrat.proyecto}} - {{contrat.especialidad}} - {{contrat.proveedor}}
+                </div>
             </div>
-            <div class="col-12">
-                <label class="app-label">Especialidad: </label>
-                <span class="pr-2"></span>
-                <span class="label">{{contrato.especialidad}}</span>
-
-                <span class="pr-4"></span>
-
-                <label class="app-label">Proveedor: </label>
-                <span class="pr-2"></span>
-                <span class="label">{{contrato.proveedor}}</span>
+        </ng-template>
+    </p-autoComplete>
+    <div class="pl-2"></div>
+    <p-button label="Descargar" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
+                icon="pi pi-download"></p-button>
+</div>
+<div class="mt-2"  *ngIf="contrato.id">
+    <div class="grid">
+        <div class="col-9">
+            <div class="grid app-contract-info">
+                <div class="col-12">
+                    <label class="app-label">Folio: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.folio}}</span>
+    
+                    <span class="pr-4"></span>
+    
+                    <label class="app-label">Proyecto: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.proyecto}}</span>
+                </div>
+                <div class="col-12">
+                    <label class="app-label">Especialidad: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.especialidad}}</span>
+    
+                    <span class="pr-4"></span>
+    
+                    <label class="app-label">Proveedor: </label>
+                    <span class="pr-2"></span>
+                    <span class="app-description">{{contrato.proveedor}}</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-3" *ngIf="contrato.id">
-        <p-avatar *ngIf="status == 'ERROR'" label="Error" 
-                  styleClass="mr-2" size="large" shape="circle"
-                  [style]="{ 'background-color': 'rgb(248 4 27)', color: '#ffffff' }"></p-avatar>
-        <p-avatar *ngIf="status == 'WARNING'" 
-                    label="Pendt" styleClass="mr-2" size="large" shape="circle"
-                    [style]="{ 'background-color': 'rgb(255 233 5)', color: 'rgb(27 26 26)' }"></p-avatar>
-        <p-avatar *ngIf="status == 'SUCCESS'" 
-                label="OK" styleClass="mr-2" size="large" shape="circle"
-                [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
-        <label class="app-label-status">{{messageStatus}}</label>
+        <div class="col-3" *ngIf="contrato.id">
+            <p-avatar *ngIf="status == 'ERROR'" label="Error" 
+                      styleClass="mr-2" size="large" shape="circle"
+                      [style]="{ 'background-color': 'rgb(248 4 27)', color: '#ffffff' }"></p-avatar>
+            <p-avatar *ngIf="status == 'WARNING'" 
+                        label="Pendt" styleClass="mr-2" size="large" shape="circle"
+                        [style]="{ 'background-color': 'rgb(255 233 5)', color: 'rgb(27 26 26)' }"></p-avatar>
+            <p-avatar *ngIf="status == 'SUCCESS'" 
+                    label="OK" styleClass="mr-2" size="large" shape="circle"
+                    [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
+            <label class="app-label-status">{{messageStatus}}</label>
+        </div>
     </div>
 </div>
-<div class="pb-2"></div>
 <div class="grid">
     <div class="col-4">
-        <p-table [value]="abonos"
-            sortMode="single"
-            responsiveLayout="scroll"
-            [scrollable]="true"
-            scrollHeight="72vh"
-            styleClass="p-datatable-sm p-datatable-gridlines">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th colspan="6" style="border-right: 1px solid; text-align: center;">ESTIMACIONES</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>No.</th>
-                    <th>Fecha</th>
-                    <th>Importe</th>
-                    <th>Abonado</th>
-                    <th>Pendiente</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-abono>
-                <tr>
-                    <td>
-                        <p-button icon="pi pi-pencil" 
-                            styleClass="p-button-rounded p-button-secondary p-button-text" 
-                            pTooltip="Editar"
-                            (click)="edit(abono.id)"></p-button>
-                    </td>
-                    <td>
-                        {{abono.numeroAbono}}
-                    </td>
-                    <td>
-                        {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
-                    </td>
-                    <td style="text-align: end;">
-                        <a *ngIf="abono.hipervinculo" href="{{abono.hipervinculo}}" target="_blank">
-                            {{abono.importe | currency}}
-                        </a>
-                        <span *ngIf="!abono.hipervinculo">
-                            {{abono.importe | currency}}
-                        </span>
-                    </td>
-                    <td style="text-align: end;">
-                        {{abono.importeAbono | currency}}
-                    </td>
-                    <td style="text-align: end;">
-                        <app-texto text="{{getLabelAbono(abono.importe, abono.importeAbono)}}" 
-                            [type]="abono.importe > abono.importeAbono ? 'danger' : 'success'" [bold]="true"></app-texto>
-                    </td>
-                </tr>
-            </ng-template>    
-        </p-table>
+        <div class="app-info">
+            <p-table [value]="abonos"
+                sortMode="single"
+                responsiveLayout="scroll"
+                [scrollable]="true"
+                scrollHeight="72vh"
+                styleClass="p-datatable-sm p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="6" style="border-right: 1px solid; text-align: center;">ESTIMACIONES</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                        <th>Abonado</th>
+                        <th>Pendiente</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-abono>
+                    <tr>
+                        <td>
+                            <p-button icon="pi pi-pencil" 
+                                styleClass="p-button-rounded p-button-warning p-button-text" 
+                                pTooltip="Editar"
+                                (click)="edit(abono.id)"></p-button>
+                        </td>
+                        <td>
+                            {{abono.numeroAbono}}
+                        </td>
+                        <td>
+                            {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
+                        </td>
+                        <td style="text-align: end;">
+                            <a *ngIf="abono.hipervinculo" href="{{abono.hipervinculo}}" target="_blank" class="app-link">
+                                {{abono.importe | currency}}
+                            </a>
+                            <span *ngIf="!abono.hipervinculo">
+                                {{abono.importe | currency}}
+                            </span>
+                        </td>
+                        <td style="text-align: end;">
+                            {{abono.importeAbono | currency}}
+                        </td>
+                        <td style="text-align: end;">
+                            <app-texto text="{{getLabelAbono(abono.importe, abono.importeAbono)}}" 
+                                [type]="abono.importe > abono.importeAbono ? 'danger' : 'success'" [bold]="true"></app-texto>
+                        </td>
+                    </tr>
+                </ng-template>    
+            </p-table>
+        </div>
     </div>
     <div class="col-5">
-        <p-table [value]="pagos"
-            sortMode="single"
-            responsiveLayout="scroll"
-            [scrollable]="true"
-            scrollHeight="72vh"
-            styleClass="p-datatable-sm p-datatable-gridlines">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th colspan="6" style="border-right: 1px solid; text-align: center;">PAGOS</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>No.</th>
-                    <th>Fecha</th>
-                    <th>Importe</th>
-                    <th>Concepto</th>
-                    <th>Observaciones</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-abono let-i="rowIndex">
-                <tr>
-                    <td>
-                        <p-button icon="pi pi-pencil" 
-                            styleClass="p-button-rounded p-button-secondary p-button-text" 
-                            pTooltip="Editar"
-                            (click)="edit(abono.id)"></p-button>
-                    </td>
-                    <td>
-                        {{i < 9 ? '0' + (i+ 1) : i + 1}}
-                    </td>
-                    <td>
-                        {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
-                    </td>
-                    <td style="text-align: end;">
-                        <a *ngIf="abono.hipervinculo" href="{{abono.hipervinculo}}" target="_blank">
-                            {{abono.importe | currency}}
-                        </a>
-                        <span *ngIf="!abono.hipervinculo">
-                            {{abono.importe | currency}}
-                        </span>
-                    </td>
-                    <td class="fitwidth">
-                        <span>{{abono.concepto}}</span>
-                        <span *ngIf="abono.concepto === 'ABONO'"> A ESTIMACIÓN</span>
-                        <span style="font-weight: bold;">{{' ' + abono.numeroAbono}}</span>
-                    </td>
-                    <td class="fitwidth">
-                        <span *ngIf="abono.observaciones" pTooltip="{{abono.observaciones}}" tooltipPosition="left">{{abono.observaciones | truncate:20}}</span>
-                    </td>
-                </tr>
-            </ng-template>  
-        </p-table>
+        <div class="app-info">
+            <p-table [value]="pagos"
+                sortMode="single"
+                responsiveLayout="scroll"
+                [scrollable]="true"
+                scrollHeight="72vh"
+                styleClass="p-datatable-sm p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="6" style="border-right: 1px solid; text-align: center;">PAGOS</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                        <th>Concepto</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-abono let-i="rowIndex">
+                    <tr>
+                        <td>
+                            <p-button icon="pi pi-pencil" 
+                                styleClass="p-button-rounded p-button-warning p-button-text" 
+                                pTooltip="Editar"
+                                (click)="edit(abono.id)"></p-button>
+                        </td>
+                        <td>
+                            {{i < 9 ? '0' + (i+ 1) : i + 1}}
+                        </td>
+                        <td>
+                            {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
+                        </td>
+                        <td style="text-align: end;">
+                            <a *ngIf="abono.hipervinculo" href="{{abono.hipervinculo}}" target="_blank" class="app-link">
+                                {{abono.importe | currency}}
+                            </a>
+                            <span *ngIf="!abono.hipervinculo">
+                                {{abono.importe | currency}}
+                            </span>
+                        </td>
+                        <td class="fitwidth">
+                            <span>{{abono.concepto}}</span>
+                            <span *ngIf="abono.concepto === 'ABONO'"> A ESTIMACIÓN</span>
+                            <span style="font-weight: bold;">{{' ' + abono.numeroAbono}}</span>
+                        </td>
+                        <td class="fitwidth">
+                            <span *ngIf="abono.observaciones" pTooltip="{{abono.observaciones}}" tooltipPosition="left">{{abono.observaciones | truncate:20}}</span>
+                        </td>
+                    </tr>
+                </ng-template>  
+            </p-table>
+        </div>
     </div>
     <div class="col-3">
         <div class="app-info" *ngIf="contrato.id">
@@ -177,7 +179,7 @@
                     <label class="app-label">Monto contratado: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <a *ngIf="contrato.hipervinculo" href="{{contrato.hipervinculo}}" target="_blank">
+                    <a *ngIf="contrato.hipervinculo" href="{{contrato.hipervinculo}}" target="_blank" class="app-link">
                         {{contrato.importeContratado | currency}}
                     </a>
                     <span *ngIf="!contrato.hipervinculo" class="value">

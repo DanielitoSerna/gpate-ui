@@ -195,6 +195,9 @@ export class EstimacionesPagosComponent implements OnInit {
       this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
       this.loadContract(this.estimacion.contrato);
       this.valorAnterior = this.estimacion.importe;
+      this.tipoRegistros = [
+        {name: this.estimacion.concepto, code: this.estimacion.concepto}
+      ];
     });
   }
 

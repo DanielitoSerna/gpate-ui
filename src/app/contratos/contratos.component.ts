@@ -15,6 +15,7 @@ export class ContratosComponent implements OnInit {
 
   visible = false;
   export = false;
+  import = false;
   changeState = false;
   editar = false;
   format = '1';
@@ -177,6 +178,10 @@ export class ContratosComponent implements OnInit {
 
   roteEstadoCuenta(id: any) {
     this.route.navigate(['web-contrato-estado-cuenta/' + id]);
+  }
+
+  upload(event: any) {
+    console.error(event);
   }
 
 }

@@ -16,17 +16,18 @@
   }
 
 ::ng-deep .p-button.p-button-warning {
-    height: 40px !important;
+    height: 34px !important;
 }
 
 ::ng-deep .p-button.p-button-secondary {
-    height: 40px !important;
+    height: 34px !important;
 }
 
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
-    background-color: #495057;
+    background-color: #2f323f;
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th :hover {
@@ -58,13 +59,81 @@
   background-color: #8d7d5b;
 }
 
+::ng-deep .p-paginator {
+  background: none !important;
+  color: white !important;
+}
+
+::ng-deep .p-paginator .p-paginator-current {
+  color: #a4b0bb;
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+  color: #a4b0bb;
+}
+
+::ng-deep .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
+  padding: 0.429rem 0.571rem;;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background: none;
+  color: white;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, .05);
+}
+
+::ng-deep .p-inputtext {
+  padding: 10px;
+  background: #484b56;
+  color: white;
+  border: none !important;
+}
+
+::ng-deep .p-dropdown {
+  background: #484b56;
+  color: white;
+  border: none !important;
+}
+
+::ng-deep  .p-sidebar-right {
+  background: #252636;
+  color: white;
+  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  font-weight: 400;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background: #252636;
+  color: white;
+  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background: #252636;
+  color: white;
+  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
 .app_content {
+    margin-left: 45px;
     padding: 20px;
-    height: 90vh;
+    height: 100vh;
     font: normal normal 600 14px/19px Open, Sans-serif;
     font-size: 14px;
-    background-color: #000000;
+    background-color: rgb(47 50 63);
     overflow: auto;
+    padding-bottom: 0px;
 }
 
 .spinner {
@@ -147,4 +216,79 @@
   padding-left: 20px;
   padding-bottom: 10px;
 }
+
+.app_aside__container {
+    background-color: rgb(47 50 63);
+    height: 100vh;
+    margin: 0;
+    padding: 12px 0;
+    padding-left: 0;
+    position: absolute;
+    transition: all 0.6s;
+    width: 250px;
+    z-index: 11;
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+
+.app_aside__container_colapseButton_container:hover {
+  background-color: var(--color-neutral-n150);
+  font-weight: 600;
+}
+
+.app_aside__container--collapsed {
+  width: 50px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.app_aside__colapseButton_container {
+  margin-left: 42px;
+  transform: rotateY(180deg);
+}
+
+.item-menu {
+  color: white;
+  list-style: none;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.item-menu:hover {
+  background: rgba(255, 255, 255, .05);
+}
+
+.app-item-select {
+  background-color: #FEBE10;
+  padding-left: 3px;
+  padding-top: 10px;
+  margin-left: -2px;
+}
+
+.app-info-label {
+  font-size: 20px;
+  color: white;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.app-sub-menu {
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+}
+
+.p-icon {
+  width: 43px;
+  padding-left: 5px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.p-image {
+  width: 230px;
+  padding-left: 5px;
+  height: 38px;
+  cursor: pointer;
+}
+
   

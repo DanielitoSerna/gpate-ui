@@ -1,22 +1,54 @@
-<header class="app_header">
-    <div>
-        <p-toast position="top-left"></p-toast>
-        <p-menu #menu [model]="items" [popup]="true"></p-menu>
-        <p-button (click)="menu.toggle($event)" icon="pi pi-bars" label="Menú" styleClass="p-button-warning"></p-button>
-        <label class="app-titulo">
-            {{getRoute()}}
-        </label>
-        
+<aside class="app_aside__container" [ngClass]="{ 'app_aside__container--collapsed': isCollapsed }">
+    <div (click)="toggleMenu()">
+        <em *ngIf="isCollapsed">
+            <img src="../../../assets/gIcon.png" alt="" srcset="" class="p-icon" />
+        </em>
+        <em  *ngIf="!isCollapsed">
+            <img src="../../../assets/logo.png" alt="" srcset="" class="p-image"/>
+        </em>
     </div>
-    <a href="http://www.gpate.mx/" target="_blank" routerLinkActive="router-link-active" class="app_header__brandContainer" rel="noopener">
-      <img width="250" alt="Angular Logo" src="../../../assets/logo.png"/>
-    </a>
-</header>
+<nav>
+    <ul style="padding-left: 5px;">
+        <ng-container *ngFor="let menuItem of items;">
+            <ng-container *ngIf="menuItem.items">
+                <p-divider *ngIf="isCollapsed"></p-divider>
+                <span *ngIf="!isCollapsed" class="app-sub-menu">
+                    <div class="pt-5"></div>
+                    {{menuItem.label}}
+                    <div class="pt-2"></div>
+                </span>
+                <span (click)="goToMenu()"
+                    *ngFor="let item of menuItem.items;"
+                   [routerLink]="[item.routerLink]"
+                   routerLinkActive="router-link-active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    
+                   <li pTooltip="{{item.label}}" class="item-menu">
+                        <span *ngIf="routeName === item.label" class="app-item-select"></span>
+                        <span class="{{item.icon}}" style="font-size: 25px;"></span>
+                        <span *ngIf="!isCollapsed" class="pl-2">{{item.label}}</span>
+                    </li>
+                </span>
+            </ng-container>
+        </ng-container>
+        <p-divider></p-divider>
+        <li pTooltip="Cerrar sessión" class="item-menu">
+            <ng-container>
+                <span class="pi pi-sign-out" style="font-size: 25px; padding-left: 2px;"></span>
+                <span *ngIf="!isCollapsed" class="pl-2">Cerrar sesión</span>
+            </ng-container>
+        </li>
+    </ul>
+</nav>
+</aside>
 <div class="app_content">
+    <label class="app-info-label">{{getRoute()}}</label>
     <div class="spinner" *ngIf="service.isProgress()">
         <span class="label-spinner">Cargando...</span>
         <p-progressSpinner [style]="{ width: '150px', height: '150px' }" styleClass="custom-spinner"
           strokeWidth="3"></p-progressSpinner>
     </div>
-    <router-outlet></router-outlet> 
+    <div class="app-content">
+        <router-outlet></router-outlet> 
+    </div>
 </div>
