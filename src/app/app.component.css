@@ -125,6 +125,18 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
+::ng-deep .p-fileupload-buttonbar {
+  background: none !important;
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep .p-fileupload-content {
+  background: none !important;
+  color: white !important;
+  border: none !important;
+}
+
 .app_content {
     margin-left: 45px;
     padding: 20px;

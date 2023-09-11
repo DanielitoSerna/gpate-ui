@@ -78,7 +78,7 @@ export class EstimacionesPagosComponent implements OnInit {
       
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado' });
         return false;
-      } else if(importeTotal >  this.contrato.importeContratado) {
+      } else if(!this.contrato.tieneImporte && importeTotal >  this.contrato.importeContratado) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor de la estimación supera el monto contratado' });
         return false;
       }

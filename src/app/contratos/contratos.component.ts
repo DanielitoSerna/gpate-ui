@@ -21,6 +21,7 @@ export class ContratosComponent implements OnInit {
   format = '1';
   totalElements = 0;
   search = false;
+  delete = false;
   estado = 'Inactivo';
 
   contracts:[] = [];
@@ -180,8 +181,37 @@ export class ContratosComponent implements OnInit {
     this.route.navigate(['web-contrato-estado-cuenta/' + id]);
   }
 
-  upload(event: any) {
-    console.error(event);
+  onUpload(event: any) {
+    let formData = new FormData();
+    formData.append("file", event.files[0]);
+    this.service.post(formData, 'api/cargarContrato').then(_data => {
+      this.import = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+    }).catch(e => {
+      this.import = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+
+    });
+  }
+
+  openDelete(contrato: any) {
+    this.contrato = contrato;
+    this.delete = true;
+  }
+
+  onDelete(contractId: number) {
+    this.service.initProgress();
+    this.service.delete('api/eliminarContrato?idContrato=' + contractId).then(_data => {
+      this.loadData();
+      this.service.finishProgress();
+      this.delete = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+    }).catch(_e => {
+      this.loadData();
+      this.service.finishProgress();
+      this.delete = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+    });
   }
 
 }

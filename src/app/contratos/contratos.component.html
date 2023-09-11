@@ -32,7 +32,8 @@
             <div class="pb-2"></div>
             <p-dropdown [options]="estados" [(ngModel)]="filter.estado" optionLabel="name" 
             optionValue="code"
-            placeholder="Selec.." (onChange)="filterData()"></p-dropdown>
+            placeholder="Selec.." (onChange)="filterData()"
+            [style]="{'minWidth':'100%'}" ></p-dropdown>
         </div>
         <div class="col-2">
             <div style="display: flex; margin-top: 30px; margin-left: 20px;">
@@ -58,7 +59,7 @@
                 <th colspan="14" style="background: #F59E0B;">INFORMACIÓN LEGAL</th>
             </tr>
             <tr>
-                <th style="min-width:100px">Acciones</th>
+                <th style="min-width:130px">Acciones</th>
                 <th class="fitwidth" pSortableColumn="proyecto">
                     Proyecto
                     <p-sortIcon field="proyecto"></p-sortIcon>
@@ -119,6 +120,7 @@
         <ng-template pTemplate="body" let-contract>
             <tr class="{{contract.estado == 'Inactivo' ? 'row-inactive' : ''}}">
                 <td>
+
                     <p-button icon="pi pi-pencil" 
                     styleClass="p-button-rounded p-button-warning p-button-text" 
                     pTooltip="Editar"
@@ -135,6 +137,11 @@
                     styleClass="p-button-rounded p-button-danger p-button-text" 
                     pTooltip="Activar"
                     (click)="changeStatus(contract, 'Activo')"></p-button>
+
+                    <p-button icon="pi pi-trash" 
+                    styleClass="p-button-rounded p-button-danger p-button-text" 
+                    pTooltip="eliminar"
+                    (click)="openDelete(contract)"></p-button>
                 </td>
                 <td class="fitwidth">{{ contract.proyecto}}</td>
                 <td class="fitwidth">
@@ -326,8 +333,10 @@
     <p-dialog header="Importar" [(visible)]="import" [modal]="true" [style]="{ width: '520px' }" [draggable]="false" [resizable]="false">
         <div class="pb-4"></div>
         <div class="flex flex-wrap gap-3">
-            <p-fileUpload chooseLabel="Seleccionar.." uploadLabel="Cargar" cancelLabel="Cancelar" name="myfile[]" [multiple]="false" accept=".txt" [maxFileSize]="1000000"
-                (onUpload)="upload($event)">
+            <p-fileUpload chooseLabel="Seleccionar.." 
+                uploadLabel="Cargar" cancelLabel="Cancelar" name="myfile[]" [multiple]="false" accept=".txt" [maxFileSize]="1000000"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                (onUpload)="onUpload($event)" >
                 <ng-template pTemplate="toolbar">
                     <div class="py-3">Selecciona el archivo para comenzar con la carga</div>
                 </ng-template>
@@ -346,6 +355,17 @@
         <div class="flex flex-wrap justify-content-end gap-2">
             <p-button label="Cancelar" styleClass="p-button-secondary" (click)="changeState = false"></p-button>
             <p-button label="Si, continuar" styleClass="p-button-warning" (click)="save()"></p-button>
+        </div>
+    </p-dialog>
+
+    <p-dialog header="Eliminar contrato" [(visible)]="delete" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <p class="m-0">
+            ¿Esta seguro que desea eliminar el contrato: <strong>{{contrato.folio}}</strong>?, si lo elimina se perderan toda la información.
+        </p>
+        <div class="pb-4"></div>
+        <div class="flex flex-wrap justify-content-end gap-2">
+            <p-button label="Cancelar" styleClass="p-button-secondary" (click)="delete = false"></p-button>
+            <p-button label="Si, continuar" styleClass="p-button-warning" (click)="onDelete(contrato.id)"></p-button>
         </div>
     </p-dialog>
 </div>
