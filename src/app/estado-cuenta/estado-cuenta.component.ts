@@ -115,7 +115,7 @@ export class EstadoCuentaComponent implements OnInit {
       this.messageStatus = 'El valor de las estimaciones supera el valor contratado';
     } else if (this.contrato.saldoPendienteContrato > 0) {
       this.status = 'WARNING';
-      this.messageStatus = 'Contrato pendinte por liquidar';
+      this.messageStatus = 'Contrato pendiente por liquidar';
     } else if (this.contrato.saldoPendienteContrato == 0) {
       this.status = 'SUCCESS';
       this.messageStatus = 'Contrato liquidado';
