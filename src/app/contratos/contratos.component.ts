@@ -188,9 +188,13 @@ export class ContratosComponent implements OnInit {
       this.import = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
     }).catch(e => {
-      this.import = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
-
+      if(e.status == 200) {
+        this.import = false;
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+      } else {
+        console.error(e);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+      }
     });
   }
 
@@ -206,11 +210,15 @@ export class ContratosComponent implements OnInit {
       this.service.finishProgress();
       this.delete = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
-    }).catch(_e => {
-      this.loadData();
-      this.service.finishProgress();
-      this.delete = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+    }).catch(e => {
+      if(e.status == 200) {
+        this.service.finishProgress();
+        this.delete = false;
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+      } else {
+        console.error(e);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+      }    
     });
   }
 

@@ -134,7 +134,7 @@ export class EstimacionesPagosComponent implements OnInit {
 
   getConsecutive() {
     this.getOpciones();
-    if(this.contrato.saldoPendienteContrato == 0) {
+    if(this.contrato.saldoPendienteContrato == 0 && !this.contrato.tieneImporte) {
       this.liquidado = true
     } else {
       this.liquidado = false;
@@ -195,9 +195,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
       this.loadContract(this.estimacion.contrato);
       this.valorAnterior = this.estimacion.importe;
-      this.tipoRegistros = [
-        {name: this.estimacion.concepto, code: this.estimacion.concepto}
-      ];
+      this.getOpciones();
     });
   }
 
