@@ -55,16 +55,19 @@ input {
     height: 12px;
     overflow: visible;
     width: 12px;
+    background: none;
   }
   
   ::-webkit-scrollbar-button {
     height: 0;
     width: 0;
+    background: none;
   }
   
   ::-webkit-scrollbar-track {
     background-clip: padding-box;
     margin-bottom: 2px !important;
+    background: none;
   }
   
   

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import {CurrencyPipe} from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-estado-cuenta',
@@ -21,11 +22,15 @@ export class EstadoCuentaComponent implements OnInit {
 
   status = 'WARNING';
   messageStatus = '';
+  delete = false;
+  estimacion: any = {};
+  consecutivo = '';
 
   constructor(public service: AppService,
     private money: CurrencyPipe,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -72,7 +77,7 @@ export class EstadoCuentaComponent implements OnInit {
     let filer = {
       contrato: this.contrato.id,
       size: 200,
-      sort: 'fechaOperacion'
+      sort: 'fechaOperacion, numeroAbono'
     }
     this.service.filter(filer, "estimacionPago?")
     .then((data: any) => {
@@ -120,5 +125,31 @@ export class EstadoCuentaComponent implements OnInit {
       this.status = 'SUCCESS';
       this.messageStatus = 'Contrato liquidado';
     }
+  }
+
+  openDelete(estimacion: any, index: any) {
+    this.estimacion = estimacion;
+    this.consecutivo = index;
+    this.delete = true;
+  }
+
+  onDelete() {
+    this.service.initProgress();
+    this.service.delete('api/eliminarEstimacionPago?idEstimacion=' + this.estimacion.id).then(_data => {
+      this.loadContract(this.contrato.id);
+      this.service.finishProgress();
+      this.delete = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente'});
+    }).catch(e => {
+      if(e.status == 200) {
+        this.service.finishProgress();
+        this.delete = false;
+        this.loadContract(this.contrato.id);
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente'});
+      } else {
+        console.error(e);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+      }    
+    });
   }
 }

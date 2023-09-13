@@ -49,13 +49,16 @@
         <div class="col-3" *ngIf="contrato.id">
             <p-avatar *ngIf="status == 'ERROR'" label="Error" 
                       styleClass="mr-2" size="large" shape="circle"
-                      [style]="{ 'background-color': 'rgb(248 4 27)', color: '#ffffff' }"></p-avatar>
+                      [style]="{ 'background-color': 'rgb(252, 97, 97)', color: '#ffffff',
+                      'box-shadow': '0px 6px 20px rgba(252, 97, 97, 0.3)' }"></p-avatar>
             <p-avatar *ngIf="status == 'WARNING'" 
                         label="Pendt" styleClass="mr-2" size="large" shape="circle"
-                        [style]="{ 'background-color': 'rgb(255 233 5)', color: 'rgb(27 26 26)' }"></p-avatar>
+                        [style]="{ 'background-color': 'rgb(255 233 5)', color: 'rgb(27 26 26)',
+                        'box-shadow': '0px 6px 20px rgb(255 233 5)' }"></p-avatar>
             <p-avatar *ngIf="status == 'SUCCESS'" 
                     label="OK" styleClass="mr-2" size="large" shape="circle"
-                    [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
+                    [style]="{ 'background-color': 'rgb(11, 209, 138)', color: '#ffffff', 
+                    'box-shadow': '0px 6px 20px rgba(11, 209, 138, 0.3)' }"></p-avatar>
             <label class="app-label-status">{{messageStatus}}</label>
         </div>
     </div>
@@ -74,7 +77,7 @@
                         <th colspan="6" style="border-right: 1px solid; text-align: center;">ESTIMACIONES</th>
                     </tr>
                     <tr>
-                        <th></th>
+                        <th style="min-width:90px"></th>
                         <th>No.</th>
                         <th>Fecha</th>
                         <th>Importe</th>
@@ -89,6 +92,11 @@
                                 styleClass="p-button-rounded p-button-warning p-button-text" 
                                 pTooltip="Editar"
                                 (click)="edit(abono.id)"></p-button>
+
+                            <p-button icon="pi pi-trash" 
+                                styleClass="p-button-rounded p-button-danger p-button-text" 
+                                pTooltip="eliminar"
+                                (click)="openDelete(abono, abono.numeroAbono)"></p-button>
                         </td>
                         <td>
                             {{abono.numeroAbono}}
@@ -129,7 +137,7 @@
                         <th colspan="6" style="border-right: 1px solid; text-align: center;">PAGOS</th>
                     </tr>
                     <tr>
-                        <th></th>
+                        <th style="min-width:90px"></th>
                         <th>No.</th>
                         <th>Fecha</th>
                         <th>Importe</th>
@@ -144,6 +152,11 @@
                                 styleClass="p-button-rounded p-button-warning p-button-text" 
                                 pTooltip="Editar"
                                 (click)="edit(abono.id)"></p-button>
+
+                            <p-button icon="pi pi-trash" 
+                                styleClass="p-button-rounded p-button-danger p-button-text" 
+                                pTooltip="eliminar"
+                                (click)="openDelete(abono, i < 9 ? '0' + (i+ 1) : i + 1)"></p-button>
                         </td>
                         <td>
                             {{i < 9 ? '0' + (i+ 1) : i + 1}}
@@ -176,7 +189,7 @@
         <div class="app-info" *ngIf="contrato.id">
             <div class="grid">
                 <div class="col-6">
-                    <label class="app-label">Monto contratado: </label>
+                    <label class="app-label">Monto contratado:</label>
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <a *ngIf="contrato.hipervinculo" href="{{contrato.hipervinculo}}" target="_blank" class="app-link">
@@ -196,13 +209,13 @@
                     <span class="value">{{contrato.anticipoContratado | currency}}</span>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pago anticipo: </label>                    
+                    <label class="app-label">Pago a anticipo: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{valorAnticipos | currency}}</span>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pendiente: </label>                    
+                    <label class="app-label">Pendiente a anticipo: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{valorPendAnticipo | currency}}</span>
@@ -210,7 +223,7 @@
                 <div class="col-12">
                     <p-divider></p-divider>
                 </div>                <div class="col-6">
-                    <label class="app-label">Estimaciones: </label>
+                    <label class="app-label">Estimaciones programadas: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{contrato.estimacionesProgramadas | currency}}</span>
@@ -222,7 +235,7 @@
                     <span class="value">{{contrato.estimacionesPagadas | currency}}</span>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pendiente: </label>
+                    <label class="app-label">Pendiente a estimaciones: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{ (contrato.estimacionesProgramadas - contrato.estimacionesPagadas) | currency}}</span>
@@ -231,13 +244,13 @@
                     <p-divider></p-divider>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pagos realizados: </label>                    
+                    <label class="app-label">Pagos realizados a contrato: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{contrato.pagosAplicados | currency}}</span>
                 </div>
                 <div class="col-6">
-                    <label class="app-label">Pendiente por liquidar: </label>
+                    <label class="app-label">Pendiente por liquidar a contrato: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{contrato.saldoPendienteContrato | currency}}</span>
@@ -246,3 +259,14 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Eliminar estimación - pago" [(visible)]="delete" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+        ¿Esta seguro que desea eliminar el registro: <strong>{{consecutivo}}</strong>?, si lo elimina se afectaran los valores del contrato.
+    </p>
+    <div class="pb-4"></div>
+    <div class="flex flex-wrap justify-content-end gap-2">
+        <p-button label="Cancelar" styleClass="p-button-secondary" (click)="delete = false"></p-button>
+        <p-button label="Si, continuar" styleClass="p-button-warning" (click)="onDelete()"></p-button>
+    </div>
+</p-dialog>

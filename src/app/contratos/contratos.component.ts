@@ -212,6 +212,7 @@ export class ContratosComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
     }).catch(e => {
       if(e.status == 200) {
+        this.loadData();
         this.service.finishProgress();
         this.delete = false;
         this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
