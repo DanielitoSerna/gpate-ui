@@ -15,8 +15,11 @@
         </ng-template>
     </p-autoComplete>
     <div class="pl-2"></div>
-    <p-button label="Descargar" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
+    <p-button label="Descargar PDF" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
                 icon="pi pi-download"></p-button>
+    <div class="pl-2"></div>
+    <p-button label="Exportar Excel" styleClass="p-button-warning" (click)="export()" [disabled]="!contrato.folio"
+                icon="pi pi-file-excel"></p-button>
 </div>
 <div class="mt-2"  *ngIf="contrato.id">
     <div class="grid">
