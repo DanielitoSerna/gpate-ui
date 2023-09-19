@@ -17,9 +17,6 @@
     <div class="pl-2"></div>
     <p-button label="Descargar PDF" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
                 icon="pi pi-download"></p-button>
-    <div class="pl-2"></div>
-    <p-button label="Exportar Excel" styleClass="p-button-warning" (click)="export()" [disabled]="!contrato.folio"
-                icon="pi pi-file-excel"></p-button>
 </div>
 <div class="mt-2"  *ngIf="contrato.id">
     <div class="grid">
@@ -49,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3" *ngIf="contrato.id">
+        <div class="col-3 app-label-status" *ngIf="contrato.id">
             <p-avatar *ngIf="status == 'ERROR'" label="Error" 
                       styleClass="mr-2" size="large" shape="circle"
                       [style]="{ 'background-color': 'rgb(252, 97, 97)', color: '#ffffff',
@@ -62,7 +59,7 @@
                     label="OK" styleClass="mr-2" size="large" shape="circle"
                     [style]="{ 'background-color': 'rgb(11, 209, 138)', color: '#ffffff', 
                     'box-shadow': '0px 6px 20px rgba(11, 209, 138, 0.3)' }"></p-avatar>
-            <label class="app-label-status">{{messageStatus}}</label>
+            {{messageStatus}}
         </div>
     </div>
 </div>
@@ -81,8 +78,14 @@
                     </tr>
                     <tr>
                         <th style="min-width:90px"></th>
-                        <th>No.</th>
-                        <th>Fecha</th>
+                        <th pSortableColumn="numeroAbono" style="min-width:70px">
+                            No.
+                            <p-sortIcon field="numeroAbono"></p-sortIcon>
+                        </th>
+                        <th  pSortableColumn="fechaOperacion">
+                            Fecha
+                            <p-sortIcon field="fechaOperacion"></p-sortIcon>
+                        </th>
                         <th>Importe</th>
                         <th>Abonado</th>
                         <th>Pendiente</th>
@@ -101,7 +104,7 @@
                                 pTooltip="eliminar"
                                 (click)="openDelete(abono, abono.numeroAbono)"></p-button>
                         </td>
-                        <td>
+                        <td style="text-align: end;">
                             {{abono.numeroAbono}}
                         </td>
                         <td>
@@ -141,8 +144,14 @@
                     </tr>
                     <tr>
                         <th style="min-width:90px"></th>
-                        <th>No.</th>
-                        <th>Fecha</th>
+                        <th pSortableColumn="numeroAbono" style="min-width:70px">
+                            No.
+                            <p-sortIcon field="numeroAbono"></p-sortIcon>
+                        </th>
+                        <th  pSortableColumn="fechaOperacion">
+                            Fecha
+                            <p-sortIcon field="fechaOperacion"></p-sortIcon>
+                        </th>
                         <th>Importe</th>
                         <th>Concepto</th>
                         <th>Observaciones</th>
@@ -161,7 +170,7 @@
                                 pTooltip="eliminar"
                                 (click)="openDelete(abono, i < 9 ? '0' + (i+ 1) : i + 1)"></p-button>
                         </td>
-                        <td>
+                        <td style="text-align: end;">
                             {{i < 9 ? '0' + (i+ 1) : i + 1}}
                         </td>
                         <td>

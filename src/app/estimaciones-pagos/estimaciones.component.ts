@@ -226,4 +226,8 @@ export class EstimacionesPagosComponent implements OnInit {
     }
 
   }
+
+  export() {
+      window.open(this.service.configUrl + 'api/excel/estadoCuenta');
+  }
 }

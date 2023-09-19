@@ -182,12 +182,15 @@ export class ContratosComponent implements OnInit {
   }
 
   onUpload(event: any) {
+    this.service.initProgress();
     let formData = new FormData();
     formData.append("file", event.files[0]);
     this.service.post(formData, 'api/cargarContrato').then(_data => {
+      this.service.finishProgress();
       this.import = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
     }).catch(e => {
+      this.service.finishProgress();
       if(e.status == 200) {
         this.import = false;
         this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});

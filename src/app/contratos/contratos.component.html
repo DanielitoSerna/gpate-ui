@@ -336,7 +336,10 @@
             <p-fileUpload chooseLabel="Seleccionar.." 
                 uploadLabel="Cargar" cancelLabel="Cancelar" name="myfile[]" [multiple]="false" accept=".txt" [maxFileSize]="1000000"
                 url="https://www.primefaces.org/cdn/api/upload.php"
-                (onUpload)="onUpload($event)" >
+                (onUpload)="onUpload($event)" 
+                uploadStyleClass="p-button-warning"
+                cancelStyleClass="p-button-warning"
+                chooseStyleClass="p-button-warning">
                 <ng-template pTemplate="toolbar">
                     <div class="py-3">Selecciona el archivo para comenzar con la carga</div>
                 </ng-template>

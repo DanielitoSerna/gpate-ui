@@ -110,12 +110,6 @@ export class EstadoCuentaComponent implements OnInit {
     }
   }
 
-  export() {
-    if(this.contrato.id) {
-      window.open(this.service.configUrl + '/api/excel/estadoCuenta?contrato=' + this.contrato.id);
-    }
-  }
-
   edit(id: number) {
     this.router.navigate(['web-estimacion-pago/' + id]);
   }

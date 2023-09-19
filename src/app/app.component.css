@@ -105,24 +105,24 @@
 ::ng-deep  .p-sidebar-right {
   background: #252636;
   color: white;
-  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
   font-weight: 400;
 }
 
 ::ng-deep .p-dialog .p-dialog-header {
   background: #252636;
   color: white;
-  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
+  border-top: 3px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 ::ng-deep .p-dialog .p-dialog-content {
   background: #252636;
   color: white;
-  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-left: 3px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 3px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 ::ng-deep .p-fileupload-buttonbar {
