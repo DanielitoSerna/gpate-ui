@@ -124,6 +124,10 @@ export class EstadoCuentaComponent implements OnInit {
     } else if (this.contrato.saldoPendienteContrato == 0) {
       this.status = 'SUCCESS';
       this.messageStatus = 'Contrato liquidado';
+    } else if((this.contrato.estimacionesPagadas == undefined || this.contrato.estimacionesPagadas == 0) &&
+      (this.contrato.pagosAplicados == undefined || this.contrato.pagosAplicados == 0)) {
+      this.status = 'BLUE';
+      this.messageStatus = 'Sin movimientos';
     }
   }
 

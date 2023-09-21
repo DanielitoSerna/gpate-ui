@@ -59,6 +59,10 @@
                     label="OK" styleClass="mr-2" size="large" shape="circle"
                     [style]="{ 'background-color': 'rgb(11, 209, 138)', color: '#ffffff', 
                     'box-shadow': '0px 6px 20px rgba(11, 209, 138, 0.3)' }"></p-avatar>
+            <p-avatar *ngIf="status == 'BLUE'" 
+                    label="SM" styleClass="mr-2" size="large" shape="circle"
+                    [style]="{ 'background-color': 'rgb(11 173 209)', color: '#ffffff', 
+                    'box-shadow': '0px 6px 20px rgba(11, 173, 209, 0.3)' }"></p-avatar>
             {{messageStatus}}
         </div>
     </div>
