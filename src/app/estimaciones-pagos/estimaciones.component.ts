@@ -19,6 +19,7 @@ export class EstimacionesPagosComponent implements OnInit {
   confirmAbono = false;
   liquidado = false;
   valorAnterior = 0;
+  import = false;
 
   abonos: any[] = [];
   tipoRegistros: any[]= [];
@@ -229,5 +230,25 @@ export class EstimacionesPagosComponent implements OnInit {
 
   export() {
       window.open(this.service.configUrl + 'api/excel/estadoCuenta');
+  }
+
+  onUpload(event: any) {
+    this.service.initProgress();
+    let formData = new FormData();
+    formData.append("file", event.files[0]);
+    this.service.post(formData, 'api/cargueMasivoEstimaciones').then(_data => {
+      this.service.finishProgress();
+      this.import = false;
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+    }).catch(e => {
+      this.service.finishProgress();
+      if(e.status == 200) {
+        this.import = false;
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+      } else {
+        console.error(e);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+      }
+    });
   }
 }
