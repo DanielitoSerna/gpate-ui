@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppService {
 
-    public configUrl = "https://gpate-system.onrender.com/";
+    public configUrl = "https://gpate-service.onrender.com/";
     constructor(private http: HttpClient) {}
 
     isProgress(): boolean {
