@@ -1,0 +1,9 @@
+:host ::ng-deep { 
+    .p-inputtext {
+        width: 100% !important;
+    }
+}
+
+::ng-deep .app-form {
+    width: 40rem !important;
+}

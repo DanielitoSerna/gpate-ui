@@ -21,6 +21,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { FileUploadModule } from 'primeng/fileupload';
         AutoCompleteModule,
         AvatarModule,
         CheckboxModule,
-        FileUploadModule
+        FileUploadModule,
+        ProgressBarModule
     ],
     exports: [
         TableModule,
@@ -65,7 +67,8 @@ import { FileUploadModule } from 'primeng/fileupload';
         AutoCompleteModule,
         AvatarModule,
         CheckboxModule,
-        FileUploadModule
+        FileUploadModule,
+        ProgressBarModule
     ],
     providers: [
         MessageService

@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { ContratosComponent } from './contratos/contratos.component';
 import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.component';
 import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
+import { TotalesProyecto } from './totales-proyecto/totales-proyecto.component';
 
 const routes: Routes = [
     {
@@ -29,7 +30,11 @@ const routes: Routes = [
     {
       path: "web-contrato-estado-cuenta/:id",
       component: EstadoCuentaComponent
-    }
+    },
+    {
+      path: "web-totales-proyecto",
+      component: TotalesProyecto
+    },
 ];
 
 @NgModule({

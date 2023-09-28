@@ -17,6 +17,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.component';
 import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
 import { CurrencyPipe } from '@angular/common';
+import { TotalesProyecto } from './totales-proyecto/totales-proyecto.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CurrencyPipe } from '@angular/common';
     BadgeComponent,
     TruncatePipe,
     EstimacionesPagosComponent,
-    EstadoCuentaComponent
+    EstadoCuentaComponent,
+    TotalesProyecto
   ],
   imports: [
     BrowserModule,

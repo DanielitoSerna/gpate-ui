@@ -1,0 +1,87 @@
+<div class="card">
+    <p-table [value]="contracts"
+            sortMode="single"
+            (sortFunction)="sort($event)"
+            [customSort]="true"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            responsiveLayout="scroll"
+            [scrollable]="true"
+            scrollHeight="80vh"
+            styleClass="p-datatable-sm">   
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="fitwidth" pSortableColumn="proyecto">
+                    Proyecto
+                    <p-sortIcon field="proyecto"></p-sortIcon>
+                </th>
+                <th pSortableColumn="importeContratado">
+                    Importe contratado
+                    <p-sortIcon field="importeContratado"></p-sortIcon>
+                </th>
+                <th pSortableColumn="anticipoContratado">
+                    Anticipo contratado
+                    <p-sortIcon field="anticipoContratado"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pagosAnticipo">
+                    Pagos anticipo
+                    <p-sortIcon field="pagosAnticipo"></p-sortIcon>
+                </th>
+                <th pSortableColumn="estimacionesProgramadas">
+                    Estimaciones programadas
+                    <p-sortIcon field="estimacionesProgramadas"></p-sortIcon>
+                </th>
+                <th pSortableColumn="estimacionesPagadas">
+                    Estimaciones pagadas
+                    <p-sortIcon field="estimacionesPagadas"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pagosAplicados">
+                    Pagos aplicados
+                    <p-sortIcon field="pagosAplicados"></p-sortIcon>
+                </th>
+                <th pSortableColumn="saldoPendiente">
+                    Saldo pendiente al contrato
+                    <p-sortIcon field="saldoPendiente"></p-sortIcon>
+                </th>
+                <th class="fitwidth">% de avance general</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th class="text-white">{{totales.importeContratado | currency}}</th>
+                <th class="text-white">{{totales.anticipoContratado | currency}}</th>
+                <th class="text-white">{{totales.pagosAnticipo | currency}}</th>
+                <th class="text-white">{{totales.estimacionesProgramadas | currency}}</th>
+                <th class="text-white">{{totales.estimacionesPagadas | currency}}</th>
+                <th class="text-white">{{totales.pagosAplicados | currency}}</th>
+                <th class="text-white">{{totales.saldoPendiente | currency}}</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-contract>
+            <tr class="{{contract.estado == 'Inactivo' ? 'row-inactive' : ''}}">
+                <td class="fitwidth">{{ contract.proyecto}}</td>
+                <td class="text-blue">{{ contract.importeContratado | currency}}</td>
+                <td class="text-blue">{{ contract.anticipoContratado | currency}}</td>
+                <td class="text-green">{{ contract.pagosAnticipo | currency}}</td>
+                <td class="text-blue">{{ contract.estimacionesProgramadas | currency}}</td>
+                <td class="text-green">{{ contract.estimacionesPagadas | currency}}</td>
+                <td class="text-green">{{ contract.pagosAplicados | currency}}</td>
+                <td class="text-red">{{ contract.saldoPendiente | currency}}</td>
+                <td>
+                    <p-progressBar [value]="calculateAvanc(contract)"></p-progressBar>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator
+            #paginator
+            [pageLinkSize]="5"
+            [showCurrentPageReport]="true"
+            [showFirstLastIcon]="false"
+            [rows]="15"
+            [totalRecords]="totalElements"
+            currentPageReportTemplate="Mostrando {{contracts.length}} de {{totalElements}} proyectos."
+            [rowsPerPageOptions]="[5,10,15,20,50]"
+            (onPageChange)="onPageChange($event)">
+    </p-paginator>
+</div>
