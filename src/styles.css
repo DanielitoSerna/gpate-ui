@@ -171,19 +171,19 @@ input {
 .text-blue {
   text-align: end !important; 
   font-weight: bold; 
-  color: rgb(0, 208, 222);
+  color: rgb(0, 208, 222) !important;
 }
 
 .text-green {
   text-align: end !important; 
   font-weight: bold; 
-  color: rgb(11, 209, 138);
+  color: rgb(11, 209, 138) !important;
 }
 
 .text-red {
   text-align: end !important; 
   font-weight: bold; 
-  color: rgb(252, 97, 97);
+  color: rgb(252, 97, 97) !important;
 }
 
 .text-white {

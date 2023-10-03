@@ -1,4 +1,22 @@
 <div class="card">
+    <div class="grid pb-2">
+        <div class="col-8"></div>
+        <div class="col-2">
+            <label class="label">Estado</label>
+            <div class="pb-2"></div>
+            <p-dropdown [options]="estados" [(ngModel)]="filter.estado" optionLabel="name" 
+            optionValue="code"
+            placeholder="Selec.." (onChange)="filterData()"
+            [style]="{'minWidth':'100%'}" ></p-dropdown>
+        </div>
+        <div class="col-2">
+            <div style="display: flex; margin-top: 30px; margin-left: 20px;">
+                <p-button label="Buscar" styleClass="p-button-warning" (click)="filterData()"></p-button>
+                <div class="pr-2"></div>
+                <p-button label="Limpiar" styleClass="p-button-secondary" (click)="clean()" [disabled]="!search"></p-button>
+            </div>
+        </div>
+    </div>
     <p-table [value]="contracts"
             sortMode="single"
             (sortFunction)="sort($event)"
@@ -44,15 +62,15 @@
                 </th>
                 <th class="fitwidth">% de avance general</th>
             </tr>
-            <tr>
-                <th></th>
-                <th class="text-white">{{totales.importeContratado | currency}}</th>
-                <th class="text-white">{{totales.anticipoContratado | currency}}</th>
-                <th class="text-white">{{totales.pagosAnticipo | currency}}</th>
-                <th class="text-white">{{totales.estimacionesProgramadas | currency}}</th>
-                <th class="text-white">{{totales.estimacionesPagadas | currency}}</th>
-                <th class="text-white">{{totales.pagosAplicados | currency}}</th>
-                <th class="text-white">{{totales.saldoPendiente | currency}}</th>
+            <tr *ngFor="let total of totales">
+                <th class="{{total.estado == 'Activo' ? 'text-green' : 'text-red'}}">{{total.estado}}</th>
+                <th class="text-white">{{total.importeContratado | currency}}</th>
+                <th class="text-white">{{total.anticipoContratado | currency}}</th>
+                <th class="text-white">{{total.pagosAnticipo | currency}}</th>
+                <th class="text-white">{{total.estimacionesProgramadas | currency}}</th>
+                <th class="text-white">{{total.estimacionesPagadas | currency}}</th>
+                <th class="text-white">{{total.pagosAplicados | currency}}</th>
+                <th class="text-white">{{total.saldoPendiente | currency}}</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -78,7 +96,7 @@
             [pageLinkSize]="5"
             [showCurrentPageReport]="true"
             [showFirstLastIcon]="false"
-            [rows]="15"
+            [rows]="10"
             [totalRecords]="totalElements"
             currentPageReportTemplate="Mostrando {{contracts.length}} de {{totalElements}} proyectos."
             [rowsPerPageOptions]="[5,10,15,20,50]"
