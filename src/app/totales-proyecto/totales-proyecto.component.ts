@@ -60,7 +60,7 @@ export class TotalesProyecto implements OnInit {
       this.totalElements = data.page.totalElements;
     });
     this.service.initProgress();
-    this.service.filter({}, "viewContratoTotal?").then((data: any) => {
+    this.service.filter(this.filter, "viewContratoTotal?").then((data: any) => {
       this.service.finishProgress();
       let embedded = data._embedded;
       this.totales = embedded.viewContratoTotal;
