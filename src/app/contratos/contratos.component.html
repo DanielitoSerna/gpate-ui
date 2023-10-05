@@ -349,6 +349,17 @@
             </p-fileUpload>
         </div>
     </p-dialog>
+
+    <p-dialog header="Confirmar" [(visible)]="confirm" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+        <p class="m-0">
+            Este proceso afectara directamente la información ya registrada, ¿Esta seguro que desea continuar?
+        </p>
+        <div class="pb-4"></div>
+        <div class="flex flex-wrap justify-content-end gap-2">
+            <p-button label="Cancelar" styleClass="p-button-secondary" (click)="confirm = false"></p-button>
+            <p-button label="Si, continuar" styleClass="p-button-warning" (click)="confirmUpload()"></p-button>
+        </div>
+    </p-dialog>
     
     <p-dialog header="Cambiar estado" [(visible)]="changeState" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
         <p class="m-0">

@@ -23,6 +23,8 @@ export class ContratosComponent implements OnInit {
   search = false;
   delete = false;
   estado = 'Inactivo';
+  confirm = false;
+  file: any = undefined;
 
   contracts:[] = [];
   contrato:any = {};
@@ -182,14 +184,21 @@ export class ContratosComponent implements OnInit {
   }
 
   onUpload(event: any) {
+    this.file =  event.files[0];
+    this.confirm = true;
+  }
+
+  confirmUpload() {
+    this.confirm = false;
     this.service.initProgress();
     let formData = new FormData();
-    formData.append("file", event.files[0]);
+    formData.append("file", this.file);
     this.service.post(formData, 'api/cargarContrato').then(_data => {
       this.service.finishProgress();
       this.import = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
     }).catch(e => {
+      this.file = undefined;
       this.service.finishProgress();
       if(e.status == 200) {
         this.import = false;

@@ -20,6 +20,8 @@ export class EstimacionesPagosComponent implements OnInit {
   liquidado = false;
   valorAnterior = 0;
   import = false;
+  confirmUp = false;
+  file: any = undefined;
 
   abonos: any[] = [];
   tipoRegistros: any[]= [];
@@ -233,14 +235,21 @@ export class EstimacionesPagosComponent implements OnInit {
   }
 
   onUpload(event: any) {
+    this.file = event.files[0];
+    this.confirmUp = true;
+  }
+
+  confirmUpload() {
+    this.confirmUp = false;
     this.service.initProgress();
     let formData = new FormData();
-    formData.append("file", event.files[0]);
+    formData.append("file", this.file);
     this.service.post(formData, 'api/cargueMasivoEstimaciones').then(_data => {
       this.service.finishProgress();
       this.import = false;
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
     }).catch(e => {
+      this.file = undefined;
       this.service.finishProgress();
       if(e.status == 200) {
         this.import = false;
