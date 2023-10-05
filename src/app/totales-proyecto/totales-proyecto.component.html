@@ -64,19 +64,23 @@
             </tr>
             <tr *ngFor="let total of totales">
                 <th class="{{total.estado == 'Activo' ? 'text-green' : 'text-red'}}">{{total.estado}}</th>
-                <th class="text-white">{{total.importeContratado | currency}}</th>
-                <th class="text-white">{{total.anticipoContratado | currency}}</th>
-                <th class="text-white">{{total.pagosAnticipo | currency}}</th>
-                <th class="text-white">{{total.estimacionesProgramadas | currency}}</th>
-                <th class="text-white">{{total.estimacionesPagadas | currency}}</th>
-                <th class="text-white">{{total.pagosAplicados | currency}}</th>
-                <th class="text-white">{{total.saldoPendiente | currency}}</th>
+                <th class="text-white value">{{total.importeContratado | currency}}</th>
+                <th class="text-white value">{{total.anticipoContratado | currency}}</th>
+                <th class="text-white value">{{total.pagosAnticipo | currency}}</th>
+                <th class="text-white value">{{total.estimacionesProgramadas | currency}}</th>
+                <th class="text-white value">{{total.estimacionesPagadas | currency}}</th>
+                <th class="text-white value">{{total.pagosAplicados | currency}}</th>
+                <th class="text-white value">{{total.saldoPendiente | currency}}</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-contract>
             <tr class="{{contract.estado == 'Inactivo' ? 'row-inactive' : ''}}">
-                <td class="fitwidth">{{ contract.proyecto}}</td>
+                <td class="fitwidth">
+                    <span (click)="roteSaldos(contract.proyecto)" class="app-link" pTooltip="Ver saldos del proyecto">
+                        {{ contract.proyecto}}
+                    </span>
+                </td>
                 <td class="text-blue">{{ contract.importeContratado | currency}}</td>
                 <td class="text-blue">{{ contract.anticipoContratado | currency}}</td>
                 <td class="text-green">{{ contract.pagosAnticipo | currency}}</td>

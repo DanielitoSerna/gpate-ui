@@ -44,6 +44,11 @@ export class AppComponent implements OnInit {
             routerLink: '/web-totales-proyecto'
           },
           {
+            label: 'Saldos por proyecto',
+            icon: 'pi pi-bitcoin',
+            routerLink: '/web-saldos-proyecto'
+          },
+          {
             label: 'Gráficas',
             icon: 'pi pi-fw pi-chart-bar'
           },

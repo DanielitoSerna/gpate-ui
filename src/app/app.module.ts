@@ -18,6 +18,7 @@ import { EstimacionesPagosComponent } from './estimaciones-pagos/estimaciones.co
 import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
 import { CurrencyPipe } from '@angular/common';
 import { TotalesProyecto } from './totales-proyecto/totales-proyecto.component';
+import { SaldosProyecto } from './saldos-proyecto/saldos-proyecto.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TotalesProyecto } from './totales-proyecto/totales-proyecto.component';
     TruncatePipe,
     EstimacionesPagosComponent,
     EstadoCuentaComponent,
-    TotalesProyecto
+    TotalesProyecto,
+    SaldosProyecto
   ],
   imports: [
     BrowserModule,

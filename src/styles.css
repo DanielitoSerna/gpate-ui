@@ -104,7 +104,7 @@ input {
 
 .app-description {
   font-style: italic;
-  color: #a4b0bb;
+  color: #a4b0bb !important;
 }
 
 .app-filter {
@@ -127,8 +127,9 @@ input {
 }
 
 .value {
-  color: #FEBE10;
-  font-size: 15px;
+  color: #fccc55 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 .app-label {

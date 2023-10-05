@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="grid pb-2">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <p-autoComplete [(ngModel)]="proyecto" [style]="{'width':'450px'}" [suggestions]="proyectos" 
+                (completeMethod)="loadProjects($event)" field="folio"
+                placeholder="Digite el nombre del proyecto que desea consultar"
+                (onSelect)="loadProject()">
+                <ng-template let-project pTemplate="item">
+                    <div class="grid">
+                        <div class="col-12" style="padding: 0px;">
+                            <strong>{{project.proyecto}}</strong>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+        </div>
+    </div>
+    <p-table [value]="contracts"
+            sortMode="single"
+            (sortFunction)="sort($event)"
+            [customSort]="true"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            responsiveLayout="scroll"
+            [scrollable]="true"
+            scrollHeight="80vh"
+            styleClass="p-datatable-sm">   
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Proyecto</th>
+                <th colspan="2" class="value" style="font-size: 16px !important;">{{proyecto.proyecto}}</th>
+                <th colspan="2" class="value">Fecha de consulta {{now | dateFormat: 'DD/MM/yyyy'}}</th>
+            </tr>
+            <tr>
+                <th class="fitwidth" pSortableColumn="proveedor">
+                    Proveedor
+                    <p-sortIcon field="proveedor"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pendientePagoEstimacion">
+                    Pendiente de pago estimaciones
+                    <p-sortIcon field="pendientePagoEstimacion"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pendientePagoAnticipo">
+                    Pendiente pago anticipo
+                    <p-sortIcon field="pendientePagoAnticipo"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pendienteActual">
+                    Pendiente actual
+                    <p-sortIcon field="pendienteActual"></p-sortIcon>
+                </th>
+                <th pSortableColumn="saldoPendienteContrato">
+                    Pendiente al contrato
+                    <p-sortIcon field="saldoPendienteContrato"></p-sortIcon>
+                </th>
+            </tr>
+            <tr *ngFor="let total of totales">
+                <th>Totales por proyecto</th>
+                <th class="text-white value">{{total.pendientePagoEstimacion | currency}}</th>
+                <th class="text-white value">{{total.pendientePagoAnticipo | currency}}</th>
+                <th class="text-white value">{{total.pendienteActual | currency}}</th>
+                <th class="text-white value">{{total.saldoPendienteContrato | currency}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-contract>
+            <tr>
+                <td class="fitwidth">{{ contract.proveedor}}</td>
+                <td class="{{contract.pendientePagoEstimacion == 0 ? 'text-blue' : 'text-red'}}">{{ contract.pendientePagoEstimacion | currency}}</td>
+                <td class="{{contract.pendientePagoAnticipo == 0 ? 'text-blue' : 'text-red'}}">{{ contract.pendientePagoAnticipo | currency}}</td>
+                <td class="{{contract.pendienteActual == 0 ? 'text-blue' : 'text-red'}}">{{ contract.pendienteActual | currency}}</td>
+                <td class="{{contract.saldoPendienteContrato == 0 ? 'text-green' : 'text-red'}}">{{ contract.saldoPendienteContrato | currency}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator
+            #paginator
+            [pageLinkSize]="5"
+            [showCurrentPageReport]="true"
+            [showFirstLastIcon]="false"
+            [rows]="10"
+            [totalRecords]="totalElements"
+            currentPageReportTemplate="Mostrando {{contracts.length}} de {{totalElements}} proveedores."
+            [rowsPerPageOptions]="[5,10,15,20,50]"
+            (onPageChange)="onPageChange($event)">
+    </p-paginator>
+</div>

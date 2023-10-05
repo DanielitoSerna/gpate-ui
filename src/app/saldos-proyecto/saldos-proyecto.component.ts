@@ -1,24 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 import { Paginator } from 'primeng/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-totales-proyecto',
-  templateUrl: './totales-proyecto.component.html',
-  styleUrls: ['./totales-proyecto.component.css']
+  selector: 'app-saldos-proyecto',
+  templateUrl: './saldos-proyecto.component.html',
+  styleUrls: ['./saldos-proyecto.component.css']
 })
-export class TotalesProyecto implements OnInit {
+export class SaldosProyecto implements OnInit {
 
   @ViewChild('paginator', {static: false}) paginator: Paginator;
 
+  now = new Date();
   totalElements = 0;
   contracts:[] = [];
   totales: any[] = [];
   filter: any = {
     page: 0,
     size: 10,
-    orderBy: "proyecto",
+    orderBy: "proveedor",
     orderAscOrDesc: "asc"
   };
 
@@ -28,15 +29,23 @@ export class TotalesProyecto implements OnInit {
   ];
 
   search = false;
+  proyectos = [];
+  proyecto: any = {};
 
   constructor(public service: AppService,
-    private route: Router) {
-    this.loadData();
-    this.loadSum();
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    localStorage.setItem('ROUTE', 'Totales por proyecto');
+    localStorage.setItem('ROUTE', 'Saldos por proyecto');
+    if(this.router.url.includes('web-proyecto-saldos-proyecto')) {
+      const proyecto = this.route.snapshot.params['proyecto'];
+      if(proyecto) {
+        this.proyecto.proyecto = proyecto;
+        this.loadProject();
+      }
+    }
   }
 
   sort(event: any) {
@@ -54,22 +63,28 @@ export class TotalesProyecto implements OnInit {
     this.loadData();
   }
 
+  loadProject() {
+    this.filter.proyecto = this.proyecto.proyecto;
+    this.loadData();
+    this.loadTotal();
+  }
+
   loadData() {
     this.service.initProgress();
-    this.service.filter(this.filter, "viewContratos?").then((data: any) => {
+    this.service.filter(this.filter, "viewSaldoContrato?").then((data: any) => {
       this.service.finishProgress();
       let embedded = data._embedded;
-      this.contracts = embedded.viewContratos;
+      this.contracts = embedded.viewSaldoContrato;
       this.totalElements = data.page.totalElements;
     });
   }
 
-  loadSum() {
+  loadTotal() {
     this.service.initProgress();
-    this.service.filter(this.filter, "viewContratoTotal?").then((data: any) => {
+    this.service.filter(this.filter, "viewSaldoContratoTotal?").then((data: any) => {
       this.service.finishProgress();
       let embedded = data._embedded;
-      this.totales = embedded.viewContratoTotal;
+      this.totales = embedded.viewSaldoContratoTotal;
     });
   }
 
@@ -84,7 +99,6 @@ export class TotalesProyecto implements OnInit {
     this.paginator.changePage(0);
     this.filter.page = 0;
     this.loadData();
-    this.loadSum();
   }
 
   clean() {
@@ -98,11 +112,16 @@ export class TotalesProyecto implements OnInit {
         orderAscOrDesc: "asc"
       }
       this.loadData();
-      this.loadSum();
     }
   }
 
-  roteSaldos(id: any) {
-    this.route.navigate(['web-proyecto-saldos-proyecto/' + id]);
+  loadProjects(event: any) {
+    let query = event.query;
+    this.service.initProgress();
+    this.service.filter({proyecto: query}, "viewSaldoContratoTotal?").then((data: any) => {
+      this.service.finishProgress();
+      let embedded = data._embedded;
+      this.proyectos = embedded.viewSaldoContratoTotal;
+    });
   }
 }
