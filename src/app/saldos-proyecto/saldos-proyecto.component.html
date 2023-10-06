@@ -1,8 +1,15 @@
 <div class="card">
     <div class="grid pb-2">
-        <div class="col-8"></div>
+        <div class="col-5 mt-2">
+                <label class="text-white" style="font-size: 14px !important;">Proyecto:</label>
+                <span class="pr-2"></span>
+                <label class="value" style="font-size: 16px !important;">{{proyecto.proyecto}}</label>
+        </div>
+        <div class="col-3 mt-2">
+            <label  class="value" style="font-size: 16px !important;">Fecha de consulta {{now | dateFormat: 'DD/MM/yyyy'}}</label>
+        </div>
         <div class="col-4">
-            <p-autoComplete [(ngModel)]="proyecto" [style]="{'width':'450px'}" [suggestions]="proyectos" 
+            <p-autoComplete [(ngModel)]="proyecto" [style]="{'width':'400px'}" [suggestions]="proyectos" 
                 (completeMethod)="loadProjects($event)" field="folio"
                 placeholder="Digite el nombre del proyecto que desea consultar"
                 (onSelect)="loadProject()">
@@ -20,17 +27,12 @@
             sortMode="single"
             (sortFunction)="sort($event)"
             [customSort]="true"
-            [tableStyle]="{ 'min-width': '75rem' }"
+            [tableStyle]="{ 'min-width': '70rem' }"
             responsiveLayout="scroll"
             [scrollable]="true"
-            scrollHeight="80vh"
+            scrollHeight="70vh"
             styleClass="p-datatable-sm">   
         <ng-template pTemplate="header">
-            <tr>
-                <th>Proyecto</th>
-                <th colspan="2" class="value" style="font-size: 16px !important;">{{proyecto.proyecto}}</th>
-                <th colspan="2" class="value">Fecha de consulta {{now | dateFormat: 'DD/MM/yyyy'}}</th>
-            </tr>
             <tr>
                 <th class="fitwidth" pSortableColumn="proveedor">
                     Proveedor
@@ -76,7 +78,7 @@
             [pageLinkSize]="5"
             [showCurrentPageReport]="true"
             [showFirstLastIcon]="false"
-            [rows]="10"
+            [rows]="50"
             [totalRecords]="totalElements"
             currentPageReportTemplate="Mostrando {{contracts.length}} de {{totalElements}} proveedores."
             [rowsPerPageOptions]="[5,10,15,20,50]"

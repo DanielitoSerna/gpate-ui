@@ -18,7 +18,7 @@ export class SaldosProyecto implements OnInit {
   totales: any[] = [];
   filter: any = {
     page: 0,
-    size: 10,
+    size: 50,
     orderBy: "proveedor",
     orderAscOrDesc: "asc"
   };
