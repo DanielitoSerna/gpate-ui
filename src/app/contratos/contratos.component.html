@@ -56,7 +56,7 @@
             <tr>
                 <th colspan="5" style="border: 1px solid rgba(255, 255, 255, 0.15);">INFORMACIÓN DEL CONTRATO</th>
                 <th colspan="7" style="border: 1px solid rgba(255, 255, 255, 0.15); background: #767c9c;">INFORMACIÓN FINANCIERA</th>
-                <th colspan="14" style="background: #F59E0B;">INFORMACIÓN LEGAL</th>
+                <th colspan="21" style="background: #F59E0B;">INFORMACIÓN LEGAL</th>
             </tr>
             <tr>
                 <th style="min-width:130px">Acciones</th>
@@ -115,6 +115,13 @@
                 <th class="fitwidth">Hipervínculo</th>
                 <th class="fitwidth">Indefinido</th>
                 <th class="fitwidth">Estado</th>
+                <th class="fitwidth">Importe estimación</th>
+                <th class="fitwidth">Retención vicios ocultos</th>
+                <th class="fitwidth">Amortización anticipo</th>
+                <th class="fitwidth">IVA</th>
+                <th class="fitwidth">Retención IVA</th>
+                <th class="fitwidth">ISR</th>
+                <th class="fitwidth">Deducciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-contract>
@@ -183,6 +190,13 @@
                     <app-texto [text]="contract.estado" 
                     [type]="contract.estado == 'Activo' ? 'success' : 'danger'" [bold]="true"></app-texto>
                 </td>
+                <td class="text-green">{{ contract.importeBruto | currency}}</td>
+                <td class="text-red">{{ contract.retencionViciosOcultos | currency}}</td>
+                <td class="text-red">{{ contract.amortizacionAnticipo | currency}}</td>
+                <td class="text-green">{{ contract.iva | currency}}</td>
+                <td class="text-red">{{ contract.retencionIva | currency}}</td>
+                <td class="text-red">{{ contract.isr | currency}}</td>
+                <td class="text-red">{{ contract.deducciones | currency}}</td>
             </tr>
         </ng-template>
     </p-table>

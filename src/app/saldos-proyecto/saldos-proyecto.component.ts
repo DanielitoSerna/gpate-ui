@@ -117,11 +117,13 @@ export class SaldosProyecto implements OnInit {
 
   loadProjects(event: any) {
     let query = event.query;
-    this.service.initProgress();
-    this.service.filter({proyecto: query}, "viewSaldoContratoTotal?").then((data: any) => {
-      this.service.finishProgress();
-      let embedded = data._embedded;
-      this.proyectos = embedded.viewSaldoContratoTotal;
-    });
+    if(query != null && query.length >= 3) {
+      this.service.initProgress();
+      this.service.filter({proyecto: query}, "viewSaldoContratoTotal?").then((data: any) => {
+        this.service.finishProgress();
+        let embedded = data._embedded;
+        this.proyectos = embedded.viewSaldoContratoTotal;
+      });
+    }
   }
 }

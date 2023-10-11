@@ -25,6 +25,8 @@ export class EstimacionesPagosComponent implements OnInit {
 
   abonos: any[] = [];
   tipoRegistros: any[]= [];
+  isEstimacion = false;
+  edit = false;
 
   constructor(public service: AppService,
     private messageService: MessageService,
@@ -38,6 +40,7 @@ export class EstimacionesPagosComponent implements OnInit {
     this.service.finishProgress();
     if(this.router.url.includes('web-estimacion-pago')) {
       const estimacionId = this.route.snapshot.params['id'];
+      this.edit = true;
       if(estimacionId) {
         this.getEstimacion(estimacionId);
       }
@@ -114,6 +117,7 @@ export class EstimacionesPagosComponent implements OnInit {
   confirmSave() {
     this.service.initProgress();
     this.estimacion.contrato = this.contrato.id;
+    this.calculateEstimacion();
     this.service.post(this.estimacion, 'estimacionPago').then(_data => {
       this.service.finishProgress();
       this.confirm = false;
@@ -137,6 +141,7 @@ export class EstimacionesPagosComponent implements OnInit {
 
   getConsecutive() {
     this.getOpciones();
+    this.isEstimacion = this.estimacion.concepto == 'ESTIMACIÓN';
     if(this.contrato.saldoPendienteContrato == 0 && !this.contrato.tieneImporte) {
       this.liquidado = true
     } else {
@@ -194,6 +199,7 @@ export class EstimacionesPagosComponent implements OnInit {
   getEstimacion(id: number) {
     this.service.get('estimacionPago/' + id).then(data => {
       this.estimacion = data;
+      this.isEstimacion = this.estimacion.concepto == 'ESTIMACIÓN';
       this.estimacion.fechaOperacion = this.service.getDate(this.estimacion.fechaOperacion);
       this.abonos.push({name: data.numeroAbono, code: data.numeroAbono})
       this.loadContract(this.estimacion.contrato);
@@ -259,5 +265,21 @@ export class EstimacionesPagosComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
       }
     });
+  }
+
+  calculateEstimacion() {
+    this.estimacion.importeBruto = this.getValue(this.estimacion.importeBruto);
+    this.estimacion.retencionViciosOcultos =  this.getValue(this.estimacion.retencionViciosOcultos);
+    this.estimacion.amortizacionAnticipo = this.getValue(this.estimacion.amortizacionAnticipo);
+    this.estimacion.iva = this.getValue(this.estimacion.iva);
+    this.estimacion.retencionIva = this.getValue(this.estimacion.retencionIva);
+    this.estimacion.isr = this.getValue(this.estimacion.isr);
+    this.estimacion.deducciones = this.getValue(this.estimacion.deducciones);
+    this.estimacion.importe = this.estimacion.importeBruto - this.estimacion.retencionViciosOcultos - this.estimacion.amortizacionAnticipo
+    + this.estimacion.iva - this.estimacion.retencionIva - this.estimacion.isr - this.estimacion.deducciones;
+  }
+
+  getValue(value: number) {
+    return value ? value : 0;
   }
 }
