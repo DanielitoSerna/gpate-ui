@@ -3,3 +3,8 @@
     padding-right: 18%;
     padding-top: 20px;
 }
+
+.app-totals {
+    position: absolute;
+    top: 10px;
+}

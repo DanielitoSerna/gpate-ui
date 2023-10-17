@@ -1,4 +1,4 @@
-<div style="position: absolute; top: 7px; right: 20px;" class="flex">
+<div style="position: absolute; top: 7px; left: 300px;" class="flex">
     <p-autoComplete [(ngModel)]="contrato" [style]="{'width':'450px'}" [suggestions]="contracts" 
         (completeMethod)="loadData($event)" field="folio"
         placeholder="Digite el folio o contrato"
@@ -18,9 +18,9 @@
     <p-button label="Descargar PDF" styleClass="p-button-warning" (click)="download()" [disabled]="!contrato.folio"
                 icon="pi pi-download"></p-button>
 </div>
-<div class="mt-2"  *ngIf="contrato.id">
+<div class="mt-2">
     <div class="grid">
-        <div class="col-9">
+        <div class="col-6" *ngIf="contrato.id">
             <div class="grid app-contract-info">
                 <div class="col-12">
                     <label class="app-label">Folio: </label>
@@ -202,7 +202,7 @@
         </div>
     </div>
     <div class="col-3">
-        <div class="app-info" *ngIf="contrato.id">
+        <div class="app-info app-totals" *ngIf="contrato.id">
             <div class="grid">
                 <div class="col-6">
                     <label class="app-label">Monto contratado:</label>
@@ -215,7 +215,7 @@
                         {{contrato.importeContratado | currency}}
                     </span>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding: 0px !important;">
                     <p-divider></p-divider>
                 </div>
                 <div class="col-6">
@@ -236,10 +236,53 @@
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{valorPendAnticipo | currency}}</span>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="padding: 0px !important;">
                     <p-divider></p-divider>
-                </div>                <div class="col-6">
+                </div>               
+                <div class="col-7">
                     <label class="app-label">Estimaciones programadas: </label>
+                </div>
+                <div class="col-5" style="text-align: end;">
+                    <span class="value">{{contrato.estimacionesProgramadas | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Retención vicios ocultos: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.retencionViciosOcultos | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Amortización anticipo: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.amortizacionAnticipo | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">IVA: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.iva | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Retención de IVA: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.retencionIva | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">ISR: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.isr | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Deducciones: </label>
+                </div>
+                <div class="col-6" style="text-align: end;">
+                    <span class="value">{{contrato.deducciones | currency}}</span>
+                </div>
+                <div class="col-6">
+                    <label class="app-label">Total facturado: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{contrato.estimacionesProgramadas | currency}}</span>
@@ -250,25 +293,25 @@
                 <div class="col-6" style="text-align: end;">
                     <span class="value">{{contrato.estimacionesPagadas | currency}}</span>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <label class="app-label">Pendiente a estimaciones: </label>
                 </div>
-                <div class="col-6" style="text-align: end;">
+                <div class="col-5" style="text-align: end;">
                     <span class="value">{{ (contrato.estimacionesProgramadas - contrato.estimacionesPagadas) | currency}}</span>
                 </div>               
-                <div class="col-12">
+                <div class="col-12" style="padding: 0px !important;">
                     <p-divider></p-divider>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <label class="app-label">Pagos realizados a contrato: </label>                    
                 </div>
-                <div class="col-6" style="text-align: end;">
+                <div class="col-5" style="text-align: end;">
                     <span class="value">{{contrato.pagosAplicados | currency}}</span>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <label class="app-label">Pendiente por liquidar a contrato: </label>
                 </div>
-                <div class="col-6" style="text-align: end;">
+                <div class="col-5" style="text-align: end;">
                     <span class="value">{{contrato.saldoPendienteContrato | currency}}</span>
                 </div>
             </div>

@@ -117,7 +117,9 @@ export class EstimacionesPagosComponent implements OnInit {
   confirmSave() {
     this.service.initProgress();
     this.estimacion.contrato = this.contrato.id;
-    this.calculateEstimacion();
+    if(this.estimacion.concepto == 'ESTIMACIÓN') {
+      this.calculateEstimacion();
+    }
     this.service.post(this.estimacion, 'estimacionPago').then(_data => {
       this.service.finishProgress();
       this.confirm = false;
