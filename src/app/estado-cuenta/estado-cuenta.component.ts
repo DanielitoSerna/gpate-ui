@@ -156,4 +156,8 @@ export class EstadoCuentaComponent implements OnInit {
       }    
     });
   }
+
+  getValueCero(value: any) {
+    return value ? value : 0;
+  }
 }

@@ -209,10 +209,10 @@
                 </div>
                 <div class="col-6" style="text-align: end;">
                     <a *ngIf="contrato.hipervinculo" href="{{contrato.hipervinculo}}" target="_blank" class="app-link">
-                        {{contrato.importeContratado | currency}}
+                        {{getValueCero(contrato.importeContratado) | currency}}
                     </a>
                     <span *ngIf="!contrato.hipervinculo" class="value">
-                        {{contrato.importeContratado | currency}}
+                        {{getValueCero(contrato.importeContratado) | currency}}
                     </span>
                 </div>
                 <div class="col-12" style="padding: 0px !important;">
@@ -222,7 +222,7 @@
                     <label class="app-label">Anticipo contratado: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.anticipoContratado | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.anticipoContratado) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Pago a anticipo: </label>                    
@@ -243,55 +243,55 @@
                     <label class="app-label">Estimaciones programadas: </label>
                 </div>
                 <div class="col-5" style="text-align: end;">
-                    <span class="value">{{contrato.estimacionesProgramadas | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.estimacionesProgramadas) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Retención vicios ocultos: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.retencionViciosOcultos | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.retencionViciosOcultos) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Amortización anticipo: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.amortizacionAnticipo | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.amortizacionAnticipo) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">IVA: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.iva | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.iva) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Retención de IVA: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.retencionIva | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.retencionIva) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">ISR: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.isr | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.isr) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Deducciones: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.deducciones | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.deducciones) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Total facturado: </label>
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.estimacionesProgramadas | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.estimacionesProgramadas) | currency}}</span>
                 </div>
                 <div class="col-6">
                     <label class="app-label">Pagos a estimaciones: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{contrato.estimacionesPagadas | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.estimacionesPagadas) | currency}}</span>
                 </div>
                 <div class="col-7">
                     <label class="app-label">Pendiente a estimaciones: </label>
@@ -306,13 +306,13 @@
                     <label class="app-label">Pagos realizados a contrato: </label>                    
                 </div>
                 <div class="col-5" style="text-align: end;">
-                    <span class="value">{{contrato.pagosAplicados | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.pagosAplicados) | currency}}</span>
                 </div>
                 <div class="col-7">
                     <label class="app-label">Pendiente por liquidar a contrato: </label>
                 </div>
                 <div class="col-5" style="text-align: end;">
-                    <span class="value">{{contrato.saldoPendienteContrato | currency}}</span>
+                    <span class="value">{{getValueCero(contrato.saldoPendienteContrato) | currency}}</span>
                 </div>
             </div>
         </div>
