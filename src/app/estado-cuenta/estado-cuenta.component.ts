@@ -133,7 +133,7 @@ export class EstadoCuentaComponent implements OnInit {
 
   openDelete(estimacion: any, index: any) {
     if(estimacion.concepto == 'ESTIMACIÓN' && (estimacion.importeAbono || estimacion.importeAbono > 0)) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No es posible eliminar la estimación porque cuenta con pagos aplicados'}); 
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No es posible eliminar la estimación porque cuenta con pagos aplicados', life: 10000}); 
       return;
     }
     this.estimacion = estimacion;
@@ -147,16 +147,16 @@ export class EstadoCuentaComponent implements OnInit {
       this.loadContract(this.contrato.id);
       this.service.finishProgress();
       this.delete = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente'});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente', life: 10000});
     }).catch(e => {
       if(e.status == 200) {
         this.service.finishProgress();
         this.delete = false;
         this.loadContract(this.contrato.id);
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente'});
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado exitosamente', life: 10000});
       } else {
         console.error(e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error, life: 10000}); 
       }    
     });
   }

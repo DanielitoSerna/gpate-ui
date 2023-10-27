@@ -71,7 +71,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.estimacion.concepto != null && this.estimacion.numeroAbono != null) {
         this.confirm = this.validateAnticipo() && this.validateAbono() && this.validateEstimacion();
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los datos requeridos' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los datos requeridos', life: 10000});
       }
   }
 
@@ -82,10 +82,10 @@ export class EstimacionesPagosComponent implements OnInit {
       if(this.estimacion.importeAbono 
         && this.estimacion.importe < this.estimacion.importeAbono) {
       
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor del importe no puede ser inferior al valor abonado', life: 10000});
         return false;
       } else if(!this.contrato.tieneImporte && importeTotal >  this.contrato.importeContratado) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor de la estimación supera el monto contratado' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El valor de la estimación supera el monto contratado', life: 10000});
         return false;
       }
     }
@@ -96,7 +96,7 @@ export class EstimacionesPagosComponent implements OnInit {
   validateAnticipo() {
     if(this.estimacion.concepto == 'ABONO A ANTICIPO' && (!this.contrato.anticipoContratado || 
       this.contrato.anticipoContratado < this.estimacion.importe)) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El importe del anticipo no puede ser superior al anticipo contratado' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El importe del anticipo no puede ser superior al anticipo contratado', life: 10000});
         return false;
       }
     return true;
@@ -124,7 +124,7 @@ export class EstimacionesPagosComponent implements OnInit {
       this.service.finishProgress();
       this.confirm = false;
       this.confirmAbono = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado con exitosamente' });
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado con exitosamente', life: 10000});
       this.router.navigate(['web-contrato-estado-cuenta/' + this.contrato.id]);
     }).catch(e => {
       this.postError(e);
@@ -134,7 +134,7 @@ export class EstimacionesPagosComponent implements OnInit {
   postError(error: any) {
     this.service.finishProgress();
     console.error(error);
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el registro' });
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el registro', life: 10000});
   }
 
   cancel() {
@@ -255,16 +255,16 @@ export class EstimacionesPagosComponent implements OnInit {
     this.service.post(formData, 'api/cargueMasivoEstimaciones').then(_data => {
       this.service.finishProgress();
       this.import = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente', life: 10000});
     }).catch(e => {
       this.file = undefined;
       this.service.finishProgress();
       if(e.status == 200) {
         this.import = false;
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente', life: 10000});
       } else {
         console.error(e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error, life: 10000}); 
       }
     });
   }

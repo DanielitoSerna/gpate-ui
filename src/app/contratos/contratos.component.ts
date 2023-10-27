@@ -115,7 +115,7 @@ export class ContratosComponent implements OnInit {
   save() {
     if(!this.contrato.proyecto || !this.contrato.folio || !this.contrato.especialidad || !this.contrato.centroCosto
       || !this.contrato.proveedor || this.contrato.importeContratado == null || this.contrato.anticipoContratado == null) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los campos requeridos' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe ingresar los campos requeridos', life: 10000});
     } else {
       this.service.initProgress();
       if(!this.contrato.estado) {
@@ -159,7 +159,7 @@ export class ContratosComponent implements OnInit {
   }
 
   postSave() {
-    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato guardado con exitosamente' });
+    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato guardado con exitosamente', life: 10000});
     this.visible = false;
     this.changeState = false;
     this.export = false;
@@ -169,7 +169,7 @@ export class ContratosComponent implements OnInit {
   postError(error: any) {
     this.service.finishProgress();
     console.error(error);
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el contrato, verifique que el Número de contrato y/o folio no se encuentre registrado' });
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al guardar el contrato, verifique que el Número de contrato y/o folio no se encuentre registrado', life: 10000});
   }
 
   changeStatus(contrato: any, estado = 'Inactivo') {
@@ -196,16 +196,16 @@ export class ContratosComponent implements OnInit {
     this.service.post(formData, 'api/cargarContrato').then(_data => {
       this.service.finishProgress();
       this.import = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente', life: 10000});
     }).catch(e => {
       this.file = undefined;
       this.service.finishProgress();
       if(e.status == 200) {
         this.import = false;
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente'});
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Archivo cargado exitosamente', life: 10000});
       } else {
         console.error(e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error, life: 10000}); 
       }
     });
   }
@@ -221,16 +221,16 @@ export class ContratosComponent implements OnInit {
       this.loadData();
       this.service.finishProgress();
       this.delete = false;
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente', life: 10000});
     }).catch(e => {
       if(e.status == 200) {
         this.loadData();
         this.service.finishProgress();
         this.delete = false;
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente'});
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contrato eliminado exitosamente', life: 10000});
       } else {
         console.error(e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error}); 
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.error, life: 10000}); 
       }    
     });
   }
