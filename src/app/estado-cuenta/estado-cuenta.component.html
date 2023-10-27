@@ -106,6 +106,7 @@
                             <p-button icon="pi pi-trash" 
                                 styleClass="p-button-rounded p-button-danger p-button-text" 
                                 pTooltip="eliminar"
+                                *ngIf="i == (abonos.length - 1)"
                                 (click)="openDelete(abono, i < 9 ? '0' + (i+ 1) : i + 1)"></p-button>
                         </td>
                         <td style="text-align: end;">
