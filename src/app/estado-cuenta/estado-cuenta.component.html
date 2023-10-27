@@ -95,7 +95,7 @@
                         <th>Pendiente</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-abono let-i="rowIndex">
+                <ng-template pTemplate="body" let-abono>
                     <tr>
                         <td>
                             <p-button icon="pi pi-pencil" 
@@ -106,10 +106,10 @@
                             <p-button icon="pi pi-trash" 
                                 styleClass="p-button-rounded p-button-danger p-button-text" 
                                 pTooltip="eliminar"
-                                (click)="openDelete(abono, i < 9 ? '0' + (i+ 1) : i + 1)"></p-button>
+                                (click)="openDelete(abono, abono.numerAbono)"></p-button>
                         </td>
                         <td style="text-align: end;">
-                            {{i < 9 ? '0' + (i+ 1) : i + 1}}
+                            {{abono.numeroAbono}}
                         </td>
                         <td>
                             {{abono.fechaOperacion | dateFormat: 'DD/MM/yyyy' }}
