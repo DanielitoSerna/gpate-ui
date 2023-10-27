@@ -132,6 +132,10 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   openDelete(estimacion: any, index: any) {
+    if(estimacion.concepto == 'ESTIMACIÓN' && (estimacion.importeAbono || estimacion.importeAbono > 0)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No es posible eliminar la estimación porque cuenta con pagos aplicados'}); 
+      return;
+    }
     this.estimacion = estimacion;
     this.consecutivo = index;
     this.delete = true;
