@@ -313,7 +313,7 @@
                     <label class="app-label">Pendiente por liquidar a contrato: </label>
                 </div>
                 <div class="col-5" style="text-align: end;">
-                    <span class="value">{{getValueCero(contrato.saldoPendienteContrato) | currency}}</span>
+                    <span class="value">{{(getValueCero(contrato.saldoPendienteContrato) - getValueCero(contrato.deducciones)) | currency}}</span>
                 </div>
             </div>
         </div>
