@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -7,14 +8,20 @@ import {HttpClient} from "@angular/common/http";
 export class AppService {
 
     public configUrl = "https://gpate-service.onrender.com/";
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,
+        public router: Router) {}
 
     isProgress(): boolean {
         return localStorage.getItem('cargando') != null && localStorage.getItem('cargando') != undefined;
     }
 
     initProgress() {
-        localStorage.setItem('cargando', 'true');
+        if(localStorage.getItem('user')) {
+            localStorage.setItem('cargando', 'true');
+        } else {
+            localStorage.clear();
+            this.router.navigateByUrl('/web-login');
+        }
     }
 
     finishProgress() {

@@ -9,7 +9,7 @@ import { SaldosProyecto } from './saldos-proyecto/saldos-proyecto.component';
 
 const routes: Routes = [
     {
-      path: "",
+      path: "web-login",
       component: LoginComponent
     },
     {

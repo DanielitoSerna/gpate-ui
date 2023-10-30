@@ -1,0 +1,11 @@
+.login-container {
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.web-imagen {
+    width: 300px;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}

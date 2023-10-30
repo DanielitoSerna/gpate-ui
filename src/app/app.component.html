@@ -1,4 +1,4 @@
-<aside class="app_aside__container" [ngClass]="{ 'app_aside__container--collapsed': isCollapsed }">
+<aside class="app_aside__container" [ngClass]="{ 'app_aside__container--collapsed': isCollapsed }" *ngIf="isUser()">
     <div (click)="toggleMenu()">
         <em *ngIf="isCollapsed">
             <img src="../../../assets/gIcon.png" alt="" srcset="" class="p-icon" />
@@ -32,7 +32,7 @@
             </ng-container>
         </ng-container>
         <p-divider></p-divider>
-        <li pTooltip="Cerrar sessión" class="item-menu">
+        <li pTooltip="Cerrar sessión" class="item-menu" (click)="logout()">
             <ng-container>
                 <span class="pi pi-sign-out" style="font-size: 25px; padding-left: 2px;"></span>
                 <span *ngIf="!isCollapsed" class="pl-2">Cerrar sesión</span>
@@ -41,7 +41,7 @@
     </ul>
 </nav>
 </aside>
-<div class="app_content">
+<div class="{{isUser() ? 'app_content' : 'app_content_login'}}">
     <p-toast></p-toast>
     <label class="app-info-label">{{getRoute()}}</label>
     <div class="spinner" *ngIf="service.isProgress()">

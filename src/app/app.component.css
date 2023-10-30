@@ -148,6 +148,16 @@
     padding-bottom: 0px;
 }
 
+.app_content_login {
+  padding: 20px;
+  height: 100vh;
+  font: normal normal 600 14px/19px Open, Sans-serif;
+  font-size: 14px;
+  background-color: rgb(47 50 63);
+  overflow: auto;
+  padding-bottom: 0px;
+}
+
 .spinner {
     position: absolute;
     width: 90%;

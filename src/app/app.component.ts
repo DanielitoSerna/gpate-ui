@@ -103,4 +103,13 @@ export class AppComponent implements OnInit {
   toggleMenu(): void {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/web-login');
+  }
+
+  isUser() { 
+    return localStorage.getItem('user');
+  }
 }
