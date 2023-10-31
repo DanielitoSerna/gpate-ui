@@ -89,6 +89,10 @@ export class AppComponent implements OnInit {
         ]
       }
     ];
+
+    if(!this.isUser()) {
+      this.logout();
+    }
   }
 
   getRoute() {
