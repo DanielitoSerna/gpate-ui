@@ -198,7 +198,7 @@ export class EstimacionesPagosComponent implements OnInit {
     }
   }
 
-  getEstimacion(id: number) {
+  async getEstimacion(id: number) {
     this.service.get('estimacionPago/' + id).then(data => {
       this.estimacion = data;
       this.isEstimacion = this.estimacion.concepto == 'ESTIMACIÓN';
@@ -210,11 +210,12 @@ export class EstimacionesPagosComponent implements OnInit {
     });
   }
 
-  loadContract(id: any) {
+  async loadContract(id: any) {
     this.service.initProgress();
     this.service.get('contratos/' + id).then(data => {
       this.contrato = data;
       this.service.finishProgress();
+      this.getOpciones();
     });
   }
 
