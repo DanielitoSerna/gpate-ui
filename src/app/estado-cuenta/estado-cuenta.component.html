@@ -235,7 +235,7 @@
                     <label class="app-label">Pendiente a anticipo: </label>                    
                 </div>
                 <div class="col-6" style="text-align: end;">
-                    <span class="value">{{valorPendAnticipo | currency}}</span>
+                    <span class="value">{{(getValueCero(contrato.anticipoContratado) - valorAnticipos) | currency}}</span>
                 </div>
                 <div class="col-12" style="padding: 0px !important;">
                     <p-divider></p-divider>
